@@ -312,7 +312,7 @@ async function startMining() {
   const playerPos = bot.entity.position.floored();
   
   // Daha geniş bir madencilik alanı ve daha derin bir madencilik
-  const valuableBlocks = ['diamond_ore', 'gold_ore', 'iron_ore', 'coal_ore', 'redstone_ore',  'emerald_ore'];
+  const valuableBlocks = ['diamond_ore', 'gold_ore', 'iron_ore', 'coal_ore', 'redstone_ore', 'emerald_ore'];
   
   try {
     // Kazma seç
@@ -332,6 +332,32 @@ async function startMining() {
             await bot.pathfinder.goto(new GoalNear(block.position.x, block.position.y, block.position.z, 2));
             await bot.equip(pickaxe, 'hand');
             await bot.dig(block);
+            
+            // Yeni madenler bulana kadar çevresindeki madenleri kaz
+            let stack = [block];
+            let visited = new Set();
+
+            while (stack.length > 0) {
+              const currentBlock = stack.pop();
+              visited.add(currentBlock.position.toString());  // Ziyaret edilen bloğu işaretle
+
+              // Yanındaki madenleri kontrol et
+              for (let offsetX = -1; offsetX <= 1; offsetX++) {
+                for (let offsetY = -1; offsetY <= 1; offsetY++) {
+                  for (let offsetZ = -1; offsetZ <= 1; offsetZ++) {
+                    if (offsetX === 0 && offsetY === 0 && offsetZ === 0) continue;  // Aynı bloğu tekrar kazma
+
+                    const adjacentBlock = bot.blockAt(currentBlock.position.offset(offsetX, offsetY, offsetZ));
+                    if (adjacentBlock && valuableBlocks.some(name => adjacentBlock.name.includes(name)) && !visited.has(adjacentBlock.position.toString())) {
+                      bot.chat(`${adjacentBlock.name} yanındaki maden!`);
+                      await bot.pathfinder.goto(new GoalNear(adjacentBlock.position.x, adjacentBlock.position.y, adjacentBlock.position.z, 2));
+                      await bot.dig(adjacentBlock);
+                      stack.push(adjacentBlock);  // Yeni bulunan madenleri sıraya ekle
+                    }
+                  }
+                }
+              }
+            }
           }
         }
       }
@@ -345,6 +371,8 @@ async function startMining() {
     miningActive = false;
   }
 }
+
+
 
 // Madenciliği durdurma fonksiyonu
 function stopMining() {
