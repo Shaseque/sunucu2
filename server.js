@@ -358,8 +358,16 @@ function stopMining() {
 }
 
 
+let isRunnin = false;
+
 // Sandığa git ve eşyaları bırak
 async function goToChestAndDeposit() {
+  if (isRunnin) {
+    bot.chat('Zaten bir işlem yapıyorum, lütfen bekleyin!');
+    return;
+  }
+
+  isRunnin = true;
   bot.chat('Sandığa gidiyorum...');
   
   try {
@@ -374,6 +382,7 @@ async function goToChestAndDeposit() {
     
     if (!chest) {
       bot.chat('Yakında sandık bulamadım!');
+      isRunning = false;
       return;
     }
     
@@ -395,13 +404,18 @@ async function goToChestAndDeposit() {
        item.name.includes('copper')) &&
       !item.name.includes('axe') && // Baltaları dışla
       !item.name.includes('pickaxe') // Kazmaları dışla
-  );
-  
-  for (const item of itemsToDrop) {
-    await chestWindow.deposit(item.type, null, item.count);
-    await bot.waitForTicks(5);
-  }
-  
+    );
+    
+    for (const item of itemsToDrop) {
+      if (!isRunning) {
+        bot.chat('İşlem durduruldu!');
+        await chestWindow.close();
+        return;
+      }
+      await chestWindow.deposit(item.type, null, item.count);
+      await bot.waitForTicks(5);
+    }
+    
     // Sandığı kapat
     await chestWindow.close();
     bot.chat('Eşyaları sandığa bıraktım!');
@@ -409,7 +423,17 @@ async function goToChestAndDeposit() {
     bot.chat(`Sandık hatası: ${err.message}`);
     console.error('Sandık hatası:', err);
   }
+
+  isRunning = false;
 }
+
+// Durma komutunu al
+bot.on('chat', (username, message) => {
+  if (message.toLowerCase() === 'dur' && username === bot.username) {
+    isRunnin = false;
+    bot.chat('İşlem durduruldu!');
+  }
+});
 
 // Uyuma fonksiyonu
 function sleep() {
