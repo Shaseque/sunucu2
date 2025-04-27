@@ -312,7 +312,7 @@ async function startMining() {
   const playerPos = bot.entity.position.floored();
   
   // Daha geniş bir madencilik alanı ve daha derin bir madencilik
-  const valuableBlocks = ['diamond_ore', 'gold_ore', 'iron_ore', 'coal_ore', 'redstone_ore', 'lapis_ore', 'emerald_ore', 'copper_ore'];
+  const valuableBlocks = ['diamond_ore', 'gold_ore', 'iron_ore', 'coal_ore', 'redstone_ore',  'emerald_ore'];
   
   try {
     // Kazma seç
