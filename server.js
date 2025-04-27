@@ -382,7 +382,7 @@ async function goToChestAndDeposit() {
     
     if (!chest) {
       bot.chat('Yakında sandık bulamadım!');
-      isRunning = false;
+      isRunnin = false;
       return;
     }
     
@@ -407,7 +407,7 @@ async function goToChestAndDeposit() {
     );
     
     for (const item of itemsToDrop) {
-      if (!isRunning) {
+      if (!isRunnin) {
         bot.chat('İşlem durduruldu!');
         await chestWindow.close();
         return;
@@ -424,7 +424,7 @@ async function goToChestAndDeposit() {
     console.error('Sandık hatası:', err);
   }
 
-  isRunning = false;
+  isRunnin = false;
 }
 
 // Durma komutunu al
@@ -434,6 +434,7 @@ bot.on('chat', (username, message) => {
     bot.chat('İşlem durduruldu!');
   }
 });
+
 
 // Uyuma fonksiyonu
 function sleep() {
