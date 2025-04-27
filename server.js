@@ -318,6 +318,7 @@ async function startMining() {
     // Kazma seç
     await bot.equip(pickaxe, 'hand');
     
+    
     // Derinlere in ve değerli madenleri ara
     for (let y = -5; y >= -50; y--) {  // Daha derin bir madencilik
       for (let x = -10; x <= 10; x++) {  // Daha geniş bir alan
