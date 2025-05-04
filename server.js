@@ -5,18 +5,20 @@ const GoalNear = goals.GoalNear;
 const Vec3 = require('vec3');
 require("./site.js")
 // Bot ayarları
+
+
 const botConfig = {
   host: 'oneydir.aternos.me',
-  port: 25565, // Default port
-  username: 'turkey', // Botunuzun ismini buraya yazın
+  port: 25565,
+  username: 'turkey',
   version: '1.20.1'
 };
 
-// Sandık koordinatı - Bunu kendi sandığınızın koordinatları ile değiştirin
+// Sandık koordinatı
 const chestLocation = new Vec3(187, 64, -293);
 
 // Bot oluşturma
-const bot = mineflayer.createBot(botConfig);
+let bot = mineflayer.createBot(botConfig);
 
 // Pathfinder eklentisi
 bot.loadPlugin(pathfinder);
@@ -36,9 +38,29 @@ bot.once('spawn', () => {
 });
 
 // Bot'a gelen hata mesajları
-bot.on('error', console.error);
-bot.on('kicked', console.log);
-bot.on('end', () => console.log('Bot bağlantısı kesildi'));
+bot.on('error', (err) => {
+  console.error('Bot Error:', err);
+  bot.quit();  // Bot'u durduruyor
+  setTimeout(() => {
+    bot = mineflayer.createBot(botConfig);  // 5 saniye sonra tekrar bağlan
+  }, 5000);
+});
+
+bot.on('kicked', (reason) => {
+  console.log('Bot kicked:', reason);
+  bot.quit();  // Bot'u durduruyor
+  setTimeout(() => {
+    bot = mineflayer.createBot(botConfig);  // 5 saniye sonra tekrar bağlan
+  }, 5000);
+});
+
+bot.on('end', () => {
+  console.log('Bot bağlantısı kesildi');
+  setTimeout(() => {
+    bot = mineflayer.createBot(botConfig);  // 5 saniye sonra tekrar bağlan
+  }, 5000);
+});
+
 
 // Chat mesajlarını işle
 function handleChat(username, message) {
