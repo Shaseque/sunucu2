@@ -2,64 +2,117 @@
 <html lang="tr">
 <head>
     <meta charset="UTF-8">
-    <title>Basit Hesap Makinesi - Shase Tools</title>
+    <link rel="stylesheet" href="style.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hesap Makinesi - Shase Tools</title>
 </head>
 <body>
-    <h1>Basit Hesap Makinesi</h1>
+    <header>
+        <h1>Hesap Makinesi</h1>
+        <nav>
+            <a href="index.html">Ana Sayfa</a>
+        </nav>
+    </header>
 
-    <div>
-        <input type="text" id="display" readonly>
-    </div>
+    <main>
+        <section class="tool-description">
+            <h2>Bu Araç Hakkında</h2>
+            <p>Basit dört işlem yapabilen, tuşlu ve klavye destekli bir hesap makinesi aracıdır.</p>
+        </section>
 
-    <div id="buttons">
-        <button onclick="press('7')">7</button>
-        <button onclick="press('8')">8</button>
-        <button onclick="press('9')">9</button>
-        <button onclick="press('/')">/</button>
+        <section class="tool-container">
+            <div class="input-area">
+                <h3>Ekran</h3>
+                <input type="text" id="input" readonly placeholder="İşlem girin...">
+            </div>
 
-        <button onclick="press('4')">4</button>
-        <button onclick="press('5')">5</button>
-        <button onclick="press('6')">6</button>
-        <button onclick="press('*')">*</button>
+            <div class="controls">
+                <div class="calculator-buttons">
+                    <button onclick="press('7')">7</button>
+                    <button onclick="press('8')">8</button>
+                    <button onclick="press('9')">9</button>
+                    <button onclick="press('/')">/</button>
 
-        <button onclick="press('1')">1</button>
-        <button onclick="press('2')">2</button>
-        <button onclick="press('3')">3</button>
-        <button onclick="press('-')">-</button>
+                    <button onclick="press('4')">4</button>
+                    <button onclick="press('5')">5</button>
+                    <button onclick="press('6')">6</button>
+                    <button onclick="press('*')">*</button>
 
-        <button onclick="press('0')">0</button>
-        <button onclick="press('.')">.</button>
-        <button onclick="calculate()">=</button>
-        <button onclick="press('+')">+</button>
+                    <button onclick="press('1')">1</button>
+                    <button onclick="press('2')">2</button>
+                    <button onclick="press('3')">3</button>
+                    <button onclick="press('-')">-</button>
 
-        <button onclick="clearDisplay()">C</button>
-        <button onclick="deleteLast()">⌫</button>
-    </div>
+                    <button onclick="press('0')">0</button>
+                    <button onclick="press('.')">.</button>
+                    <button onclick="calculate()">=</button>
+                    <button onclick="press('+')">+</button>
+
+                    <button onclick="clearInput()">C</button>
+                    <button onclick="deleteLast()">⌫</button>
+                </div>
+            </div>
+
+            <div class="output-area">
+                <h3>Sonuç</h3>
+                <div id="output">Henüz hesaplama yapılmadı.</div>
+            </div>
+        </section>
+
+        <section class="instructions">
+            <h3>Nasıl Kullanılır?</h3>
+            <ol>
+                <li>Tuşlara basarak ya da klavyeyi kullanarak işlemi gir.</li>
+                <li>= tuşuna bas ya da Enter'a bas.</li>
+                <li>Sonuç aşağıda görüntülenir.</li>
+            </ol>
+        </section>
+
+        <section class="examples">
+            <h3>Örnekler</h3>
+            <div class="example">
+                <h4>Örnek 1</h4>
+                <div class="example-input">12 + 5</div>
+                <div class="example-output">17</div>
+            </div>
+            <div class="example">
+                <h4>Örnek 2</h4>
+                <div class="example-input">8 * 7</div>
+                <div class="example-output">56</div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2025 Shase Tools. Tüm Hakları Saklıdır.</p>
+    </footer>
 
     <script>
-        const display = document.getElementById('display');
+        const inputEl = document.getElementById('input');
+        const outputEl = document.getElementById('output');
 
         function press(char) {
-            display.value += char;
+            inputEl.value += char;
         }
 
         function calculate() {
             try {
-                display.value = eval(display.value);
+                const result = eval(inputEl.value);
+                outputEl.textContent = result;
             } catch {
-                display.value = 'Hata';
+                outputEl.textContent = 'Hatalı işlem';
             }
         }
 
-        function clearDisplay() {
-            display.value = '';
+        function clearInput() {
+            inputEl.value = '';
+            outputEl.textContent = 'Henüz hesaplama yapılmadı.';
         }
 
         function deleteLast() {
-            display.value = display.value.slice(0, -1);
+            inputEl.value = inputEl.value.slice(0, -1);
         }
 
-        // Klavye desteği
         document.addEventListener('keydown', e => {
             if ('0123456789+-*/.'.includes(e.key)) {
                 press(e.key);
@@ -68,10 +121,9 @@
             } else if (e.key === 'Backspace') {
                 deleteLast();
             } else if (e.key === 'Escape') {
-                clearDisplay();
+                clearInput();
             }
         });
     </script>
-    <link rel="stylesheet" href="style.css">
 </body>
 </html>
