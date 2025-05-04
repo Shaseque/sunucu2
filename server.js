@@ -334,7 +334,7 @@ async function startMining() {
   const playerPos = bot.entity.position.floored();
   
   // Daha geniş bir madencilik alanı ve daha derin bir madencilik
-  const valuableBlocks = ['diamond_ore', 'gold_ore', 'iron_ore', 'coal_ore', 'redstone_ore', 'emerald_ore'];
+  const valuableBlocks = ['diamond_ore', 'gold_ore', 'iron_ore',  'emerald_ore'];
   
   try {
     // Kazma seç
@@ -495,21 +495,7 @@ function sleep() {
     bot.quit('Uyku modu');
     
     // 16 saniye sonra tekrar bağlan
-    setTimeout(() => {
-      const newBot = mineflayer.createBot(botConfig);
-      // Eski referansları yeni bota aktarma
-      Object.assign(bot, newBot);
-      bot.loadPlugin(pathfinder);
-      bot.once('spawn', () => {
-        console.log('Bot tekrar oyuna giriş yaptı!');
-        const defaultMove = new Movements(bot);
-        defaultMove.canDig = true;
-        defaultMove.allowSprinting = true;
-        bot.pathfinder.setMovements(defaultMove);
-        bot.on('chat', handleChat);
-        bot.chat('Tekrar giriş yaptım!');
-      });
-    }, 16000);
+    
   }, 1000);
 }
 
