@@ -23,6 +23,7 @@ let bot = mineflayer.createBot(botConfig);
 // Pathfinder eklentisi
 bot.loadPlugin(pathfinder);
 
+// Bot giriş yaptığında çalışacak kod
 bot.once('spawn', () => {
   console.log('Bot oyuna giriş yaptı!');
   
@@ -34,19 +35,6 @@ bot.once('spawn', () => {
   
   // Mesajları dinle
   bot.on('chat', handleChat);
-  
-  // 10 saniyede bir aktif hedef var mı kontrol et ve hareket et
-  setInterval(() => {
-    // Eğer botun şu an bir hedefi yoksa, ileri geri hareket et
-    if (bot.pathfinder.goals.length === 0) {
-      // İleriye git
-      bot.pathfinder.goto(new Vec3(bot.entity.position.x + 1, bot.entity.position.y, bot.entity.position.z));
-      setTimeout(() => {
-        // Geriye git
-        bot.pathfinder.goto(new Vec3(bot.entity.position.x - 1, bot.entity.position.y, bot.entity.position.z));
-      }, 5000);  // 5 saniye sonra geri git
-    }
-  }, 10000);  // 10 saniyede bir çalıştır
 });
 
 // Bot'a gelen hata mesajları
