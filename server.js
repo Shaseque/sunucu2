@@ -57,7 +57,8 @@ bot.on('kicked', (reason) => {
 bot.on('end', () => {
   console.log('Bot bağlantısı kesildi');
   setTimeout(() => {
-    bot = mineflayer.createBot(botConfig);  // 5 saniye sonra tekrar bağlan
+    bot = mineflayer.createBot(botConfig);
+    bot.loadPlugin(pathfinder);  // 5 saniye sonra tekrar bağlan
   }, 5000);
 });
 
