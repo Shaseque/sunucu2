@@ -3,7 +3,7 @@ const { pathfinder, Movements, goals } = require('mineflayer-pathfinder');
 const GoalBlock = goals.GoalBlock;
 const GoalNear = goals.GoalNear;
 const Vec3 = require('vec3');
-
+require("./site.js")
 // Bot ayarları
 const botConfig = {
   host: 'oneydir.aternos.me',
