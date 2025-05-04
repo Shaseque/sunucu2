@@ -4,11 +4,11 @@
     <meta charset="UTF-8">
     <link rel="stylesheet" href="style.css">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>[ARAÇ ADI] - Shase Tools</title>
+    <title>Base64 Kodlama & Çözme - Shase Tools</title>
 </head>
 <body>
     <header>
-        <h1>[ARAÇ ADI]</h1>
+        <h1>Base64 Kodlama & Çözme</h1>
         <nav>
             <a href="index.html">Ana Sayfa</a>
         </nav>
@@ -17,50 +17,43 @@
     <main>
         <section class="tool-description">
             <h2>Bu Araç Hakkında</h2>
-            <p>[ARAÇ AÇIKLAMASI]</p>
+            <p>Metni Base64 formatına kodlayabilir veya Base64'ten çözebilirsiniz. Şifreleme değil, dönüştürme işlemidir.</p>
         </section>
 
         <section class="tool-container">
-            <!-- Girdi Alanı -->
             <div class="input-area">
                 <h3>Girdi</h3>
-                <textarea id="input" placeholder="[GİRDİ PLACEHOLDER]"></textarea>
+                <textarea id="input" placeholder="Kodlamak veya çözmek istediğiniz metni buraya girin..."></textarea>
             </div>
 
-            <!-- Kontroller -->
             <div class="controls">
-                <button id="processButton">[İŞLEM BUTONU ADI]</button>
+                <button id="encodeButton">Base64 Kodla</button>
+                <button id="decodeButton">Base64 Çöz</button>
                 <button id="clearButton">Temizle</button>
                 <button id="copyInputButton">Girdiyi Kopyala</button>
             </div>
 
-            <!-- Çıktı Alanı -->
             <div class="output-area">
                 <h3>Çıktı</h3>
-                <div id="output">[ÇIKTI PLACEHOLDER]</div>
+                <div id="output">Henüz bir çıktı yok.</div>
                 <button id="copyOutputButton">Çıktıyı Kopyala</button>
             </div>
         </section>
 
         <section class="options">
             <h3>Seçenekler</h3>
-            <!-- Seçenekler buraya gelecek -->
             <div class="option">
-                <label for="option1">[SEÇENEK 1]</label>
-                <input type="checkbox" id="option1">
-            </div>
-            <div class="option">
-                <label for="option2">[SEÇENEK 2]</label>
-                <input type="checkbox" id="option2">
+                <label for="utf8">UTF-8 Desteği</label>
+                <input type="checkbox" id="utf8" checked>
             </div>
         </section>
 
         <section class="instructions">
             <h3>Nasıl Kullanılır?</h3>
             <ol>
-                <li>[ADIM 1]</li>
-                <li>[ADIM 2]</li>
-                <li>[ADIM 3]</li>
+                <li>Metni girin.</li>
+                <li>İstediğiniz işlemi seçin: "Base64 Kodla" veya "Base64 Çöz"</li>
+                <li>Çıktıyı kopyalayarak kullanın.</li>
             </ol>
         </section>
 
@@ -68,13 +61,13 @@
             <h3>Örnekler</h3>
             <div class="example">
                 <h4>Örnek 1</h4>
-                <div class="example-input">[ÖRNEK GİRDİ 1]</div>
-                <div class="example-output">[ÖRNEK ÇIKTI 1]</div>
+                <div class="example-input">merhaba</div>
+                <div class="example-output">bWVySEhCQQ==</div>
             </div>
             <div class="example">
                 <h4>Örnek 2</h4>
-                <div class="example-input">[ÖRNEK GİRDİ 2]</div>
-                <div class="example-output">[ÖRNEK ÇIKTI 2]</div>
+                <div class="example-input">U2hhc2Ugd29ybGRkb20h</div>
+                <div class="example-output">Shase worlddom!</div>
             </div>
         </section>
     </main>
@@ -84,51 +77,47 @@
     </footer>
 
     <script>
-        // Temel işlevsellik
-        document.getElementById('processButton').addEventListener('click', function() {
-            // İşlem fonksiyonu
-            processInput();
+        document.getElementById('encodeButton').addEventListener('click', () => {
+            const input = document.getElementById('input').value;
+            const utf8 = document.getElementById('utf8').checked;
+            let encoded = '';
+            try {
+                encoded = utf8 ? btoa(unescape(encodeURIComponent(input))) : btoa(input);
+            } catch (e) {
+                encoded = 'Kodlama sırasında hata oluştu: ' + e.message;
+            }
+            document.getElementById('output').textContent = encoded;
         });
 
-        document.getElementById('clearButton').addEventListener('click', function() {
-            // Temizleme işlevi
+        document.getElementById('decodeButton').addEventListener('click', () => {
+            const input = document.getElementById('input').value;
+            const utf8 = document.getElementById('utf8').checked;
+            let decoded = '';
+            try {
+                decoded = utf8 ? decodeURIComponent(escape(atob(input))) : atob(input);
+            } catch (e) {
+                decoded = 'Çözme sırasında hata oluştu: ' + e.message;
+            }
+            document.getElementById('output').textContent = decoded;
+        });
+
+        document.getElementById('clearButton').addEventListener('click', () => {
             document.getElementById('input').value = '';
-            document.getElementById('output').textContent = '[ÇIKTI PLACEHOLDER]';
+            document.getElementById('output').textContent = 'Henüz bir çıktı yok.';
         });
 
-        document.getElementById('copyInputButton').addEventListener('click', function() {
-            // Girdi kopyalama
+        document.getElementById('copyInputButton').addEventListener('click', () => {
             copyToClipboard(document.getElementById('input').value);
         });
 
-        document.getElementById('copyOutputButton').addEventListener('click', function() {
-            // Çıktı kopyalama
+        document.getElementById('copyOutputButton').addEventListener('click', () => {
             copyToClipboard(document.getElementById('output').textContent);
         });
 
-        // Ana işlev
-        function processInput() {
-            const input = document.getElementById('input').value;
-            let output = '';
-            
-            // [ANA İŞLEM KODU BURAYA]
-            
-            // Örnek işlem (değiştirilecek):
-            output = input;
-            
-            // Sonuç gösterme
-            document.getElementById('output').textContent = output;
-        }
-
-        // Yardımcı fonksiyonlar
         function copyToClipboard(text) {
             navigator.clipboard.writeText(text)
-                .then(() => {
-                    alert('Kopyalandı!');
-                })
-                .catch(err => {
-                    console.error('Kopyalama hatası:', err);
-                });
+                .then(() => alert('Kopyalandı!'))
+                .catch(err => console.error('Kopyalama hatası:', err));
         }
     </script>
 </body>

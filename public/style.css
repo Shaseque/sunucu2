@@ -86,7 +86,204 @@ main {
     border-color: var(--primary-color);
     box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.3);
 }
+/* styles.css - Temel Araç Stilleri */
 
+/* Genel Stiller */
+body {
+    font-family: Arial, sans-serif;
+    line-height: 1.6;
+    margin: 0;
+    padding: 0;
+    background-color: #f5f5f5;
+    color: #333;
+}
+
+header {
+    background-color: #3498db;
+    color: white;
+    padding: 1rem;
+    text-align: center;
+}
+
+header h1 {
+    margin: 0;
+}
+
+nav {
+    margin-top: 10px;
+}
+
+nav a {
+    color: white;
+    text-decoration: none;
+    padding: 5px 10px;
+    background-color: rgba(255, 255, 255, 0.2);
+    border-radius: 3px;
+}
+
+nav a:hover {
+    background-color: rgba(255, 255, 255, 0.3);
+}
+
+main {
+    max-width: 1000px;
+    margin: 20px auto;
+    padding: 0 20px;
+}
+
+section {
+    background-color: white;
+    border-radius: 5px;
+    padding: 20px;
+    margin-bottom: 20px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+h2, h3, h4 {
+    color: #2c3e50;
+}
+
+/* Araç Alanları */
+.tool-container {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.input-area, .output-area {
+    width: 100%;
+}
+
+textarea, #output {
+    width: 100%;
+    min-height: 150px;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-family: monospace;
+    font-size: 14px;
+}
+
+#output {
+    background-color: #f9f9f9;
+    overflow-wrap: break-word;
+}
+
+/* Kontroller */
+.controls {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+button {
+    padding: 8px 16px;
+    background-color: #3498db;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+button:hover {
+    background-color: #2980b9;
+}
+
+#clearButton {
+    background-color: #e74c3c;
+}
+
+#clearButton:hover {
+    background-color: #c0392b;
+}
+
+#copyInputButton, #copyOutputButton {
+    background-color: #2ecc71;
+}
+
+#copyInputButton:hover, #copyOutputButton:hover {
+    background-color: #27ae60;
+}
+
+/* Seçenekler */
+.options {
+    background-color: #f8f9fa;
+}
+
+.option {
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+}
+
+.option label {
+    margin-right: 10px;
+    flex: 1;
+}
+
+/* Talimatlar */
+.instructions ol {
+    padding-left: 20px;
+}
+
+.instructions li {
+    margin-bottom: 10px;
+}
+
+/* Örnekler */
+.example {
+    border: 1px solid #eee;
+    padding: 15px;
+    margin-bottom: 15px;
+    border-radius: 5px;
+}
+
+.example h4 {
+    margin-top: 0;
+    border-bottom: 1px solid #eee;
+    padding-bottom: 5px;
+    margin-bottom: 10px;
+}
+
+.example-input, .example-output {
+    font-family: monospace;
+    background-color: #f5f5f5;
+    padding: 10px;
+    border-radius: 3px;
+    margin-bottom: 10px;
+}
+
+.example-output {
+    background-color: #e8f4f8;
+}
+
+/* Altbilgi */
+footer {
+    text-align: center;
+    padding: 20px;
+    color: #7f8c8d;
+    font-size: 0.9rem;
+    background-color: #ecf0f1;
+    margin-top: 30px;
+}
+
+/* Responsive Tasarım */
+@media (min-width: 768px) {
+    .tool-container {
+        flex-direction: row;
+        flex-wrap: wrap;
+    }
+
+    .input-area, .output-area {
+        width: 48%;
+    }
+
+    .controls {
+        width: 100%;
+        justify-content: center;
+    }
+}
 .search-icon {
     position: absolute;
     right: 1rem;

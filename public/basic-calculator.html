@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="style.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gelişmiş Hesap Makinesi - Shase Tools</title>
+</head>
+<body>
+    <header>
+        <h1>Gelişmiş Hesap Makinesi</h1>
+        <nav>
+            <a href="index.html">Ana Sayfa</a>
+        </nav>
+    </header>
+
+    <main>
+        <section class="tool-description">
+            <h2>Bu Araç Hakkında</h2>
+            <p>Matematiksel ifadeleri çözebilen gelişmiş bir hesap makinesi. Parantez, trigonometrik fonksiyonlar, logaritmalar, üsler, kökler desteklenir.</p>
+        </section>
+
+        <section class="tool-container">
+            <div class="input-area">
+                <h3>İfade</h3>
+                <textarea id="input" placeholder="Örn: sin(45) + log(10) * sqrt(16)"></textarea>
+            </div>
+
+            <div class="controls">
+                <button id="processButton">Hesapla</button>
+                <button id="clearButton">Temizle</button>
+                <button id="copyInputButton">Girdiyi Kopyala</button>
+            </div>
+
+            <div class="output-area">
+                <h3>Sonuç</h3>
+                <div id="output">Henüz bir çıktı yok.</div>
+                <button id="copyOutputButton">Çıktıyı Kopyala</button>
+            </div>
+        </section>
+
+        <section class="instructions">
+            <h3>Nasıl Kullanılır?</h3>
+            <ol>
+                <li>İfade gir: Örneğin <code>sin(30) + sqrt(9)</code></li>
+                <li>"Hesapla" butonuna bas</li>
+                <li>Sonucu kopyala ve kullan</li>
+            </ol>
+        </section>
+
+        <section class="examples">
+            <h3>Örnekler</h3>
+            <div class="example">
+                <h4>Örnek 1</h4>
+                <div class="example-input">cos(60) + 2^3</div>
+                <div class="example-output">5.5</div>
+            </div>
+            <div class="example">
+                <h4>Örnek 2</h4>
+                <div class="example-input">sqrt(49) + log(100)</div>
+                <div class="example-output">9</div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2025 Metin ve Kod Araçları. Tüm Hakları Saklıdır.</p>
+    </footer>
+
+    <script>
+        document.getElementById('processButton').addEventListener('click', () => {
+            const input = document.getElementById('input').value;
+            let output = '';
+
+            try {
+                const sanitized = input
+                    .replace(/sin\(/g, 'Math.sin(toRad(')
+                    .replace(/cos\(/g, 'Math.cos(toRad(')
+                    .replace(/tan\(/g, 'Math.tan(toRad(')
+                    .replace(/sqrt\(/g, 'Math.sqrt(')
+                    .replace(/log\(/g, 'Math.log10(')
+                    .replace(/ln\(/g, 'Math.log(')
+                    .replace(/([0-9])\^([0-9])/g, 'Math.pow($1,$2)');
+
+                output = eval(sanitized);
+            } catch (e) {
+                output = 'Hesaplama hatası: ' + e.message;
+            }
+
+            document.getElementById('output').textContent = output;
+        });
+
+        document.getElementById('clearButton').addEventListener('click', () => {
+            document.getElementById('input').value = '';
+            document.getElementById('output').textContent = 'Henüz bir çıktı yok.';
+        });
+
+        document.getElementById('copyInputButton').addEventListener('click', () => {
+            copyToClipboard(document.getElementById('input').value);
+        });
+
+        document.getElementById('copyOutputButton').addEventListener('click', () => {
+            copyToClipboard(document.getElementById('output').textContent);
+        });
+
+        function copyToClipboard(text) {
+            navigator.clipboard.writeText(text)
+                .then(() => alert('Kopyalandı!'))
+                .catch(err => console.error('Kopyalama hatası:', err));
+        }
+
+        function toRad(deg) {
+            return deg * Math.PI / 180;
+        }
+    </script>
+</body>
+</html>
