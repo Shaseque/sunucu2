@@ -1,516 +1,256 @@
-const mineflayer = require('mineflayer');
-const { pathfinder, Movements, goals } = require('mineflayer-pathfinder');
-const GoalBlock = goals.GoalBlock;
-const GoalNear = goals.GoalNear;
-const Vec3 = require('vec3');
-require("./site.js")
-// Bot ayarları
-
-
-const botConfig = {
-  host: 'oneydir.aternos.me',
-  port: 25565,
-  username: 'turkey',
-  version: '1.20.1'
-};
-
-// Sandık koordinatı
-const chestLocation = new Vec3(187, 64, -293);
-
-// Bot oluşturma
-let bot = mineflayer.createBot(botConfig);
-
-// Pathfinder eklentisi
-bot.loadPlugin(pathfinder);
-
-// Bot giriş yaptığında çalışacak kod
-bot.once('spawn', () => {
-  console.log('Bot oyuna giriş yaptı!');
-  
-  // Hareket ayarları
-  const defaultMove = new Movements(bot);
-  defaultMove.canDig = true;
-  defaultMove.allowSprinting = true;
-  bot.pathfinder.setMovements(defaultMove);
-  
-  // Mesajları dinle
-  bot.on('chat', handleChat);
-});
-
-// Bot'a gelen hata mesajları
-bot.on('error', (err) => {
-  console.error('Bot Error:', err);
-  bot.quit();  // Bot'u durduruyor
-  setTimeout(() => {
-    bot = mineflayer.createBot(botConfig);
-    bot.loadPlugin(pathfinder);
-    bot.on('chat', handleChat);  // 5 saniye sonra tekrar bağlan
-  }, 5000);
-});
-
-bot.on('kicked', (reason) => {
-  console.log('Bot kicked:', reason);
-  bot.quit();  // Bot'u durduruyor
-  setTimeout(() => {
-    bot = mineflayer.createBot(botConfig);
-    bot.loadPlugin(pathfinder);
-    bot.on('chat', handleChat);  // 5 saniye sonra tekrar bağlan
-  }, 5000);
-});
-
-bot.on('end', () => {
-  console.log('Bot bağlantısı kesildi');
-  setTimeout(() => {
-    bot = mineflayer.createBot(botConfig);
-    bot.loadPlugin(pathfinder);
-    bot.on('chat', handleChat);  // 5 saniye sonra tekrar bağlan
-  }, 5000);
-});
-
-
-// Chat mesajlarını işle
-function handleChat(username, message) {
-  // Kendi mesajlarımızı görmezden gel
-  if (username === bot.username) return;
-  
-  const command = message.toLowerCase().split(' ');
-  
-  // Komutları kontrol et
-  if (command[0] === 'bot') {
-    switch(command[1]) {
-      case 'gel':
-        comeToPlayer(username);
-        break;
-      case 'ağaç':
-        const count = parseInt(command[2]) || 1;
-        cutTrees(count);
-        break;
-      case 'maden':
-        startMining();
-        break;
-      case 'sandık':
-        goToChestAndDeposit();
-        break;
-      case 'uyu':
-        sleep();
-        break;
-      case 'durum':
-        reportStatus();
-        break;
-      case 'dur':
-        stopMining();  // Madenciliği durdurma komutu
-        break;
-      default:
-        bot.chat('Geçerli komutlar: gel, ağaç [sayı], maden, sandık, uyu, durum, duraklat');
-    }
-  }
+const mineflayer = require("mineflayer"),
+    {
+        pathfinder,
+        Movements,
+        goals: { GoalBlock, GoalNear },
+    } = require("mineflayer-pathfinder"),
+    Vec3 = require("vec3");
+require("./site.js");
+let bot,
+    miningActive = !1,
+    isRunning = !1;
+const botConfig = { host: "oneydir.aternos.me", port: 25565, username: "turkey", version: "1.20.1" },
+    chestLocation = new Vec3(187, 64, -293),
+    valuableBlocks = ["diamond_ore", "gold_ore", "iron_ore", "emerald_ore", "copper_ore", "redstone_ore", "lapis_ore", "coal_ore"],
+    reconnectBot = () => {
+        bot && bot.quit(),
+            setTimeout(() => {
+                createBot();
+            }, 5e3);
+    };
+function createBot() {
+    (bot = mineflayer.createBot(botConfig)),
+        bot.loadPlugin(pathfinder),
+        bot.once("spawn", () => {
+            console.log("Bot oyuna giriş yaptı!");
+            const e = new Movements(bot);
+            (e.canDig = !0), (e.allowSprinting = !0), (e.allowParkour = !0), (e.canDig = !0), bot.pathfinder.setMovements(e), bot.on("chat", handleChat);
+        }),
+        bot.on("error", (e) => {
+            console.error("Bot Error:", e), reconnectBot();
+        }),
+        bot.on("kicked", (e) => {
+            console.log("Bot kicked:", e), reconnectBot();
+        }),
+        bot.on("end", () => {
+            console.log("Bot bağlantısı kesildi"), reconnectBot();
+        });
 }
-
-
-// Oyuncuya gel
-async function comeToPlayer(username) {
-  const player = bot.players[username];
-  
-  if (!player || !player.entity) {
-    bot.chat('Seni göremiyorum!');
-    return;
-  }
-  
-  bot.chat('Sana geliyorum!');
-  
-  const playerPosition = player.entity.position;
-  bot.pathfinder.setGoal(new GoalNear(playerPosition.x, playerPosition.y, playerPosition.z, 2));
-}
-
-// Ağaç kesme fonksiyonu
-async function cutTrees(count) {
-  bot.chat(`${count} ağaç kesmeye başlıyorum...`);
-  
-  // Baltayı kontrol et
-  const axe = findAxe();
-  if (!axe) {
-    bot.chat('Envanterimde balta bulamadım!');
-    return;
-  }
-  
-  let treesCut = 0;
-  
-  while (treesCut < count) {
-    // En yakın ağaç kütüğünü bul
-    const logs = findLogs(30);
-    
-    if (!logs || logs.length === 0) {
-      bot.chat('Yakında ağaç bulamadım!');
-      break;
-    }
-    
-    // En yakın ağaca git
-    const log = logs[0];
-    bot.chat(`Ağaç buldum: ${log.position.toString()}`);
-    
-    try {
-      // Ağaca yaklaş
-      const goal = new GoalBlock(log.position.x, log.position.y, log.position.z + 1);
-      await bot.pathfinder.goto(goal);
-      
-      // Baltayı seç
-      await bot.equip(axe, 'hand');
-      
-      // Ağacı kes
-      await harvestTree(log);
-      
-      treesCut++;
-      bot.chat(`${treesCut} ağaç kesildi. ${count - treesCut} tane daha kesebilirim.`);
-      
-    } catch (err) {
-      bot.chat(`Ağaç kesme hatası: ${err.message}`);
-      console.error('Ağaç kesme hatası:', err);
-      
-      // Eğer GoalChanged hatası alınırsa, yolu yeniden dene
-      if (err.message.includes('GoalChanged')) {
-        bot.chat('Yol hedefi değişti, tekrar deniyorum...');
-        continue; // Hedefi tekrar dene
-      }
-      
-      // Eğer yolu ulaşılamaz ise blok koy
-      if (err.message.includes('path') || err.message.includes('goal')) {
-        tryPlacingBlock(log.position);
-      }
-    }
-  }
-  
-  bot.chat('Ağaç kesme işlemi tamamlandı!');
-}
-
-
-// Tüm ağacı kes
-async function harvestTree(log) {
-  const treeBlocks = [];
-  const checkedBlocks = new Set();
-  
-  // Başlangıç kütüğünü ekle
-  treeBlocks.push(log);
-  
-  // Ağacın tüm bloklarını bul (kütük ve yapraklar)
-  for (let i = 0; i < treeBlocks.length; i++) {
-    const block = treeBlocks[i];
-    const blockPos = block.position;
-    const posKey = `${blockPos.x},${blockPos.y},${blockPos.z}`;
-    
-    if (checkedBlocks.has(posKey)) continue;
-    checkedBlocks.add(posKey);
-    
-    // Etraftaki ahşap ve yaprakları kontrol et
-    for (let dx = -1; dx <= 1; dx++) {
-      for (let dy = 0; dy <= 1; dy++) {
-        for (let dz = -1; dz <= 1; dz++) {
-          const neighbor = bot.blockAt(blockPos.offset(dx, dy, dz));
-          if (!neighbor) continue;
-          
-          const neighborKey = `${neighbor.position.x},${neighbor.position.y},${neighbor.position.z}`;
-          if (checkedBlocks.has(neighborKey)) continue;
-          
-          // Ahşap veya yaprak ise ekle
-          if (neighbor.name.includes('log') || neighbor.name.includes('wood')) {
-            treeBlocks.push(neighbor);
-          }
+function handleChat(e, t) {
+    if (e === bot.username) return;
+    const o = t.toLowerCase().split(" ");
+    if ("bot" === o[0])
+        switch (o[1]) {
+            case "gel":
+                comeToPlayer(e);
+                break;
+            case "ağaç":
+                const t = parseInt(o[2]) || 1;
+                cutTrees(t);
+                break;
+            case "maden":
+                startMining();
+                break;
+            case "sandık":
+                goToChestAndDeposit();
+                break;
+            case "uyu":
+                sleep();
+                break;
+            case "durum":
+                reportStatus();
+                break;
+            case "dur":
+                stopCurrentOperations();
+                break;
+            default:
+                bot.chat("Geçerli komutlar: gel, ağaç [sayı], maden, sandık, uyu, durum, dur");
         }
-      }
+}
+async function comeToPlayer(e) {
+    const t = bot.players[e];
+    if (!t || !t.entity) return void bot.chat("Seni göremiyorum!");
+    bot.chat("Sana geliyorum!");
+    const o = t.entity.position;
+    bot.pathfinder.setGoal(new GoalNear(o.x, o.y, o.z, 2));
+}
+function findItem(e) {
+    return bot.inventory.items().find((t) => t.name.includes(e));
+}
+async function cutTrees(e) {
+    if (isRunning) return void bot.chat("Zaten bir işlem yapıyorum!");
+    (isRunning = !0), bot.chat(`${e} ağaç kesmeye başlıyorum...`);
+    const t = findItem("axe");
+    if (!t) return bot.chat("Envanterimde balta bulamadım!"), void (isRunning = !1);
+    let o = 0;
+    for (; o < e && isRunning; ) {
+        const a = findLogs(30);
+        if (!a || 0 === a.length) {
+            bot.chat("Yakında ağaç bulamadım!");
+            break;
+        }
+        const i = a[0];
+        bot.chat(`Ağaç buldum: ${i.position.toString()}`);
+        try {
+            await bot.pathfinder.goto(new GoalBlock(i.position.x, i.position.y, i.position.z + 1)), await bot.equip(t, "hand"), await harvestTree(i), o++, bot.chat(`${o} ağaç kesildi. ${e - o} tane daha kesebilirim.`);
+        } catch (e) {
+            if ((bot.chat(`Ağaç kesme hatası: ${e.message}`), console.error("Ağaç kesme hatası:", e), e.message.includes("GoalChanged"))) continue;
+            (e.message.includes("path") || e.message.includes("goal")) && tryPlacingBlock(i.position);
+        }
     }
-  }
-  
-  // Önce kütükleri kes, aşağıdan yukarıya doğru
-  treeBlocks.sort((a, b) => a.position.y - b.position.y);
-  
-  for (const block of treeBlocks) {
-    try {
-      await bot.dig(block);
-      await bot.waitForTicks(5); // Biraz bekle
-    } catch (err) {
-      console.error('Blok kesme hatası:', err);
-    }
-  }
+    bot.chat("Ağaç kesme işlemi tamamlandı!"), (isRunning = !1);
 }
-
-// Çevredeki ağaç kütüklerini bul
-function findLogs(radius) {
-  const logs = Object.values(bot.findBlocks({
-    matching: block => {
-      return block.name.includes('log') || block.name.includes('wood');
-    },
-    maxDistance: radius,
-    count: 10
-  }));
-  
-  if (logs.length === 0) return null;
-  
-  // Blok nesnelerini al ve mesafeye göre sırala
-  const logBlocks = logs.map(pos => bot.blockAt(pos))
-    .sort((a, b) => {
-      const distA = bot.entity.position.distanceTo(a.position);
-      const distB = bot.entity.position.distanceTo(b.position);
-      return distA - distB;
-    });
-  
-  return logBlocks;
-}
-
-// Envanterde balta bul
-function findAxe() {
-  return bot.inventory.items().find(item => 
-    item.name.includes('axe')
-  );
-}
-
-// Envanterde kazma bul
-function findPickaxe() {
-  return bot.inventory.items().find(item => 
-    item.name.includes('pickaxe')
-  );
-}
-
-// Ulaşılamayan yerlere blok koyma
-async function tryPlacingBlock(targetPos) {
-  // Etrafında durabileceğimiz bir yer bul
-  const offsets = [
-    { x: 1, y: 0, z: 0 },
-    { x: -1, y: 0, z: 0 },
-    { x: 0, y: 0, z: 1 },
-    { x: 0, y: 0, z: -1 }
-  ];
-  
-  for (const offset of offsets) {
-    const placePos = targetPos.offset(offset.x, offset.y, offset.z);
-    const standPos = placePos.offset(offset.x, offset.y, offset.z);
-    
-    try {
-      // Durabileceğimiz yere git
-      await bot.pathfinder.goto(new GoalBlock(standPos.x, standPos.y, standPos.z));
-      
-      // Blok bulma
-      const blocks = bot.inventory.items().filter(item => 
-        item.name.includes('dirt') || 
-        item.name.includes('cobblestone') || 
-        item.name.includes('stone')
-      );
-      
-      if (blocks.length === 0) {
-        bot.chat('Blok koymak için uygun malzeme bulamadım!');
-        return;
-      }
-      
-      // Blok seç
-      await bot.equip(blocks[0], 'hand');
-      
-      // Blok koy
-      const blockRef = bot.blockAt(placePos.offset(-offset.x, -offset.y, -offset.z));
-      await bot.placeBlock(blockRef, new Vec3(offset.x, offset.y, offset.z));
-      bot.chat('Ulaşmak için blok koydum');
-      
-      return true;
-    } catch (err) {
-      console.error('Blok koyma hatası:', err);
-    }
-  }
-  
-  bot.chat('Blok koymaya uygun pozisyon bulamadım!');
-  return false;
-}
-
-// Madencilik yapma
-let miningActive = false;  // Madenciliğin aktif olup olmadığını kontrol etmek için
-
-async function startMining() {
-  if (miningActive) {
-    bot.chat('Madencilik zaten devam ediyor.');
-    return;
-  }
-
-  miningActive = true;
-  
-  const pickaxe = findPickaxe();
-  if (!pickaxe) {
-    bot.chat('Envanterimde kazma bulamadım!');
-    miningActive = false;
-    return;
-  }
-
-  bot.chat('Madencilik yapmaya başlıyorum...');
-  
-  const playerPos = bot.entity.position.floored();
-  
-  // Daha geniş bir madencilik alanı ve daha derin bir madencilik
-  const valuableBlocks = ['diamond_ore', 'gold_ore', 'iron_ore',  'emerald_ore'];
-  
-  try {
-    // Kazma seç
-    await bot.equip(pickaxe, 'hand');
-    
-    
-    // Derinlere in ve değerli madenleri ara
-    for (let y = -5; y >= -50; y--) {  // Daha derin bir madencilik
-      for (let x = -10; x <= 10; x++) {  // Daha geniş bir alan
-        for (let z = -10; z <= 10; z++) {  // Daha geniş bir alan
-          if (!miningActive) return;  // Madencilik durdurulmuşsa işlemi sonlandır
-
-          const block = bot.blockAt(playerPos.offset(x, y, z));
-          if (!block) continue;
-
-          if (valuableBlocks.some(name => block.name.includes(name))) {
-            bot.chat(`${block.name} buldum!`);
-            await bot.pathfinder.goto(new GoalNear(block.position.x, block.position.y, block.position.z, 2));
-            await bot.equip(pickaxe, 'hand');
-            await bot.dig(block);
-            
-            // Yeni madenler bulana kadar çevresindeki madenleri kaz
-            let stack = [block];
-            let visited = new Set();
-
-            while (stack.length > 0) {
-              const currentBlock = stack.pop();
-              visited.add(currentBlock.position.toString());  // Ziyaret edilen bloğu işaretle
-
-              // Yanındaki madenleri kontrol et
-              for (let offsetX = -1; offsetX <= 1; offsetX++) {
-                for (let offsetY = -1; offsetY <= 1; offsetY++) {
-                  for (let offsetZ = -1; offsetZ <= 1; offsetZ++) {
-                    if (offsetX === 0 && offsetY === 0 && offsetZ === 0) continue;  // Aynı bloğu tekrar kazma
-
-                    const adjacentBlock = bot.blockAt(currentBlock.position.offset(offsetX, offsetY, offsetZ));
-                    if (adjacentBlock && valuableBlocks.some(name => adjacentBlock.name.includes(name)) && !visited.has(adjacentBlock.position.toString())) {
-                      bot.chat(`${adjacentBlock.name} yanındaki maden!`);
-                      await bot.pathfinder.goto(new GoalNear(adjacentBlock.position.x, adjacentBlock.position.y, adjacentBlock.position.z, 2));
-                      await bot.dig(adjacentBlock);
-                      stack.push(adjacentBlock);  // Yeni bulunan madenleri sıraya ekle
+async function harvestTree(e) {
+    const t = [],
+        o = new Set();
+    for (t.push(e), i = 0; i < t.length; i++) {
+        const e = t[i],
+            a = e.position,
+            n = `${a.x},${a.y},${a.z}`;
+        if (!o.has(n))
+            for (o.add(n), r = -1; r <= 1; r++)
+                for (s = 0; s <= 1; s++)
+                    for (c = -1; c <= 1; c++) {
+                        const i = bot.blockAt(a.offset(r, s, c));
+                        if (!i) continue;
+                        const e = `${i.position.x},${i.position.y},${i.position.z}`;
+                        o.has(e) || ((i.name.includes("log") || i.name.includes("wood")) && t.push(i));
                     }
-                  }
-                }
-              }
-            }
-          }
+    }
+    t.sort((e, t) => e.position.y - t.position.y);
+    for (const e of t)
+        try {
+            await bot.dig(e), await bot.waitForTicks(2);
+        } catch (t) {
+            console.error("Blok kesme hatası:", t);
         }
-      }
+}
+function findLogs(e) {
+    const t = Object.values(bot.findBlocks({ matching: (e) => e.name.includes("log") || e.name.includes("wood"), maxDistance: e, count: 10 }));
+    return 0 === t.length
+        ? null
+        : t
+              .map((e) => bot.blockAt(e))
+              .sort((e, t) => {
+                  return bot.entity.position.distanceTo(e.position) - bot.entity.position.distanceTo(t.position);
+              });
+}
+async function tryPlacingBlock(e) {
+    const t = [
+        { x: 1, y: 0, z: 0 },
+        { x: -1, y: 0, z: 0 },
+        { x: 0, y: 0, z: 1 },
+        { x: 0, y: 0, z: -1 },
+    ];
+    for (const o of t) {
+        const t = e.offset(o.x, o.y, o.z),
+            a = t.offset(o.x, o.y, o.z);
+        try {
+            await bot.pathfinder.goto(new GoalBlock(a.x, a.y, a.z));
+            const e = bot.inventory.items().filter((e) => e.name.includes("dirt") || e.name.includes("cobblestone") || e.name.includes("stone"));
+            if (0 === e.length) return bot.chat("Blok koymak için uygun malzeme bulamadım!"), !1;
+            await bot.equip(e[0], "hand");
+            const i = bot.blockAt(t.offset(-o.x, -o.y, -o.z));
+            return await bot.placeBlock(i, new Vec3(o.x, o.y, o.z)), bot.chat("Ulaşmak için blok koydum"), !0;
+        } catch (e) {
+            console.error("Blok koyma hatası:", e);
+        }
     }
-    
-    bot.chat('Madencilik tamamlandı!');
-  } catch (err) {
-    bot.chat(`Madencilik hatası: ${err.message}`);
-    console.error('Madencilik hatası:', err);
-  } finally {
-    miningActive = false;
-  }
+    return bot.chat("Blok koymaya uygun pozisyon bulamadım!"), !1;
 }
-
-
-
-// Madenciliği durdurma fonksiyonu
-function stopMining() {
-  if (!miningActive) {
-    bot.chat('Madencilik zaten durdurulmuş durumda.');
-    return;
-  }
-
-  miningActive = false;
-  bot.chat('Madencilik durduruldu.');
+async function startMining() {
+    if (isRunning) return void bot.chat("Zaten bir işlem yapıyorum!");
+    if (miningActive) return void bot.chat("Madencilik zaten devam ediyor.");
+    (miningActive = !0), (isRunning = !0);
+    const e = findItem("pickaxe");
+    if (!e) return bot.chat("Envanterimde kazma bulamadım!"), (miningActive = !1), void (isRunning = !1);
+    bot.chat("Madencilik yapmaya başlıyorum...");
+    const t = bot.entity.position.floored();
+    try {
+        await bot.equip(e, "hand");
+        for (let o = -5; o >= -60 && miningActive; o--)
+            for (let a = -10; a <= 10 && miningActive; a++)
+                for (let i = -10; i <= 10 && miningActive; i++) {
+                    if (!miningActive) return;
+                    const n = bot.blockAt(t.offset(a, o, i));
+                    if (!n) continue;
+                    if (valuableBlocks.some((e) => n.name.includes(e))) {
+                        bot.chat(`${n.name} buldum!`), await bot.pathfinder.goto(new GoalNear(n.position.x, n.position.y, n.position.z, 2)), await bot.equip(e, "hand"), await bot.dig(n);
+                        let t = [n],
+                            o = new Set();
+                        for (; t.length > 0; ) {
+                            const a = t.pop();
+                            o.add(a.position.toString());
+                            for (let i = -1; i <= 1; i++)
+                                for (let r = -1; r <= 1; r++)
+                                    for (let s = -1; s <= 1; s++)
+                                        if (0 !== i || 0 !== r || 0 !== s) {
+                                            const c = bot.blockAt(a.position.offset(i, r, s));
+                                            c &&
+                                                valuableBlocks.some((e) => c.name.includes(e)) &&
+                                                !o.has(c.position.toString()) &&
+                                                (bot.chat(`${c.name} yanındaki maden!`), await bot.pathfinder.goto(new GoalNear(c.position.x, c.position.y, c.position.z, 2)), await bot.equip(e, "hand"), await bot.dig(c), t.push(c));
+                                        }
+                        }
+                    }
+                }
+        bot.chat("Madencilik tamamlandı!");
+    } catch (e) {
+        bot.chat(`Madencilik hatası: ${e.message}`), console.error("Madencilik hatası:", e);
+    } finally {
+        (miningActive = !1), (isRunning = !1);
+    }
 }
-
-
-let isRunnin = false;
-
-// Sandığa git ve eşyaları bırak
+function stopCurrentOperations() {
+    (miningActive = !1), (isRunning = !1), bot.pathfinder.setGoal(null), bot.chat("Tüm işlemler durduruldu.");
+}
 async function goToChestAndDeposit() {
-  if (isRunnin) {
-    bot.chat('Zaten bir işlem yapıyorum, lütfen bekleyin!');
-    return;
-  }
-
-  isRunnin = true;
-  bot.chat('Sandığa gidiyorum...');
-  
-  try {
-    // Sandığa git
-    await bot.pathfinder.goto(new GoalNear(chestLocation.x, chestLocation.y, chestLocation.z, 2));
-    
-    // Sandığı bul
-    const chest = bot.findBlock({
-      matching: block => block.name.includes('chest'),
-      maxDistance: 3
-    });
-    
-    if (!chest) {
-      bot.chat('Yakında sandık bulamadım!');
-      isRunnin = false;
-      return;
+    if (isRunning) return void bot.chat("Zaten bir işlem yapıyorum, lütfen bekleyin!");
+    (isRunning = !0), bot.chat("Sandığa gidiyorum...");
+    try {
+        await bot.pathfinder.goto(new GoalNear(chestLocation.x, chestLocation.y, chestLocation.z, 2));
+        const e = bot.findBlock({ matching: (e) => e.name.includes("chest"), maxDistance: 3 });
+        if (!e) return bot.chat("Yakında sandık bulamadım!"), void (isRunning = !1);
+        const t = await bot.openChest(e),
+            o = bot.inventory
+                .items()
+                .filter(
+                    (e) =>
+                        (e.name.includes("log") ||
+                            e.name.includes("wood") ||
+                            e.name.includes("ore") ||
+                            e.name.includes("diamond") ||
+                            e.name.includes("gold") ||
+                            e.name.includes("iron") ||
+                            e.name.includes("coal") ||
+                            e.name.includes("redstone") ||
+                            e.name.includes("lapis") ||
+                            e.name.includes("emerald") ||
+                            e.name.includes("copper")) &&
+                        !e.name.includes("axe") &&
+                        !e.name.includes("pickaxe")
+                );
+        for (const e of o) {
+            if (!isRunning) return bot.chat("İşlem durduruldu!"), void (await t.close());
+            await t.deposit(e.type, null, e.count), await bot.waitForTicks(2);
+        }
+        await t.close(), bot.chat("Eşyaları sandığa bıraktım!");
+    } catch (e) {
+        bot.chat(`Sandık hatası: ${e.message}`), console.error("Sandık hatası:", e);
     }
-    
-    // Sandığı aç
-    const chestWindow = await bot.openChest(chest);
-    
-    // Odun ve madenleri bırak
-    const itemsToDrop = bot.inventory.items().filter(item => 
-      (item.name.includes('log') || 
-       item.name.includes('wood') ||
-       item.name.includes('ore') ||
-       item.name.includes('diamond') ||
-       item.name.includes('gold') ||
-       item.name.includes('iron') ||
-       item.name.includes('coal') ||
-       item.name.includes('redstone') ||
-       item.name.includes('lapis') ||
-       item.name.includes('emerald') ||
-       item.name.includes('copper')) &&
-      !item.name.includes('axe') && // Baltaları dışla
-      !item.name.includes('pickaxe') // Kazmaları dışla
-    );
-    
-    for (const item of itemsToDrop) {
-      if (!isRunnin) {
-        bot.chat('İşlem durduruldu!');
-        await chestWindow.close();
-        return;
-      }
-      await chestWindow.deposit(item.type, null, item.count);
-      await bot.waitForTicks(5);
-    }
-    
-    // Sandığı kapat
-    await chestWindow.close();
-    bot.chat('Eşyaları sandığa bıraktım!');
-  } catch (err) {
-    bot.chat(`Sandık hatası: ${err.message}`);
-    console.error('Sandık hatası:', err);
-  }
-
-  isRunnin = false;
+    isRunning = !1;
 }
-
-// Durma komutunu al
-bot.on('chat', (username, message) => {
-  if (message.toLowerCase() === 'dur' && username === bot.username) {
-    isRunnin = false;
-    bot.chat('İşlem durduruldu!');
-  }
-});
-
-
-// Uyuma fonksiyonu
 function sleep() {
-  bot.chat('16 saniye sonra tekrar gireceğim, iyi geceler!');
-  
-  setTimeout(() => {
-    bot.quit('Uyku modu');
-    
-    // 16 saniye sonra tekrar bağlan
-    
-  }, 1000);
+    bot.chat("16 saniye sonra tekrar gireceğim, iyi geceler!"),
+        setTimeout(() => {
+            bot.quit("Uyku modu");
+        }, 1e3);
 }
-
-// Bot durumunu raporla
 function reportStatus() {
-  const health = bot.health || 0;
-  const food = bot.food || 0;
-  const items = bot.inventory.items().length;
-  const position = bot.entity.position;
-  
-  bot.chat(`Durum: Can: ${health}, Açlık: ${food}, Eşya sayısı: ${items}, Konum: ${position.toString()}`);
+    const e = bot.health || 0,
+        t = bot.food || 0,
+        o = bot.inventory.items().length,
+        a = bot.entity.position;
+    bot.chat(`Durum: Can: ${e}, Açlık: ${t}, Eşya sayısı: ${o}, Konum: ${a.toString()}`);
 }
+createBot();
