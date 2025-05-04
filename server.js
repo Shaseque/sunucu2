@@ -42,7 +42,9 @@ bot.on('error', (err) => {
   console.error('Bot Error:', err);
   bot.quit();  // Bot'u durduruyor
   setTimeout(() => {
-    bot = mineflayer.createBot(botConfig);  // 5 saniye sonra tekrar bağlan
+    bot = mineflayer.createBot(botConfig);
+    bot.loadPlugin(pathfinder);
+    bot.on('chat', handleChat);  // 5 saniye sonra tekrar bağlan
   }, 5000);
 });
 
@@ -50,7 +52,9 @@ bot.on('kicked', (reason) => {
   console.log('Bot kicked:', reason);
   bot.quit();  // Bot'u durduruyor
   setTimeout(() => {
-    bot = mineflayer.createBot(botConfig);  // 5 saniye sonra tekrar bağlan
+    bot = mineflayer.createBot(botConfig);
+    bot.loadPlugin(pathfinder);
+    bot.on('chat', handleChat);  // 5 saniye sonra tekrar bağlan
   }, 5000);
 });
 
@@ -58,7 +62,8 @@ bot.on('end', () => {
   console.log('Bot bağlantısı kesildi');
   setTimeout(() => {
     bot = mineflayer.createBot(botConfig);
-    bot.loadPlugin(pathfinder);  // 5 saniye sonra tekrar bağlan
+    bot.loadPlugin(pathfinder);
+    bot.on('chat', handleChat);  // 5 saniye sonra tekrar bağlan
   }, 5000);
 });
 
