@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="style.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>[ARAÇ ADI] - Shase Tools</title>
+</head>
+<body>
+    <header>
+        <h1>[ARAÇ ADI]</h1>
+        <nav>
+            <a href="index.html">Ana Sayfa</a>
+        </nav>
+    </header>
+
+    <main>
+        <section class="tool-description">
+            <h2>Bu Araç Hakkında</h2>
+            <p>[ARAÇ AÇIKLAMASI]</p>
+        </section>
+
+        <section class="tool-container">
+            <!-- Girdi Alanı -->
+            <div class="input-area">
+                <h3>Girdi</h3>
+                <textarea id="input" placeholder="[GİRDİ PLACEHOLDER]"></textarea>
+            </div>
+
+            <!-- Kontroller -->
+            <div class="controls">
+                <button id="processButton">[İŞLEM BUTONU ADI]</button>
+                <button id="clearButton">Temizle</button>
+                <button id="copyInputButton">Girdiyi Kopyala</button>
+            </div>
+
+            <!-- Çıktı Alanı -->
+            <div class="output-area">
+                <h3>Çıktı</h3>
+                <div id="output">[ÇIKTI PLACEHOLDER]</div>
+                <button id="copyOutputButton">Çıktıyı Kopyala</button>
+            </div>
+        </section>
+
+        <section class="options">
+            <h3>Seçenekler</h3>
+            <!-- Seçenekler buraya gelecek -->
+            <div class="option">
+                <label for="option1">[SEÇENEK 1]</label>
+                <input type="checkbox" id="option1">
+            </div>
+            <div class="option">
+                <label for="option2">[SEÇENEK 2]</label>
+                <input type="checkbox" id="option2">
+            </div>
+        </section>
+
+        <section class="instructions">
+            <h3>Nasıl Kullanılır?</h3>
+            <ol>
+                <li>[ADIM 1]</li>
+                <li>[ADIM 2]</li>
+                <li>[ADIM 3]</li>
+            </ol>
+        </section>
+
+        <section class="examples">
+            <h3>Örnekler</h3>
+            <div class="example">
+                <h4>Örnek 1</h4>
+                <div class="example-input">[ÖRNEK GİRDİ 1]</div>
+                <div class="example-output">[ÖRNEK ÇIKTI 1]</div>
+            </div>
+            <div class="example">
+                <h4>Örnek 2</h4>
+                <div class="example-input">[ÖRNEK GİRDİ 2]</div>
+                <div class="example-output">[ÖRNEK ÇIKTI 2]</div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2025 Metin ve Kod Araçları. Tüm Hakları Saklıdır.</p>
+    </footer>
+
+    <script>
+        // Temel işlevsellik
+        document.getElementById('processButton').addEventListener('click', function() {
+            // İşlem fonksiyonu
+            processInput();
+        });
+
+        document.getElementById('clearButton').addEventListener('click', function() {
+            // Temizleme işlevi
+            document.getElementById('input').value = '';
+            document.getElementById('output').textContent = '[ÇIKTI PLACEHOLDER]';
+        });
+
+        document.getElementById('copyInputButton').addEventListener('click', function() {
+            // Girdi kopyalama
+            copyToClipboard(document.getElementById('input').value);
+        });
+
+        document.getElementById('copyOutputButton').addEventListener('click', function() {
+            // Çıktı kopyalama
+            copyToClipboard(document.getElementById('output').textContent);
+        });
+
+        // Ana işlev
+        function processInput() {
+            const input = document.getElementById('input').value;
+            let output = '';
+            
+            // [ANA İŞLEM KODU BURAYA]
+            
+            // Örnek işlem (değiştirilecek):
+            output = input;
+            
+            // Sonuç gösterme
+            document.getElementById('output').textContent = output;
+        }
+
+        // Yardımcı fonksiyonlar
+        function copyToClipboard(text) {
+            navigator.clipboard.writeText(text)
+                .then(() => {
+                    alert('Kopyalandı!');
+                })
+                .catch(err => {
+                    console.error('Kopyalama hatası:', err);
+                });
+        }
+    </script>
+</body>
+</html>

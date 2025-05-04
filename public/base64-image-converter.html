@@ -2,65 +2,124 @@
 <html lang="tr">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Shase Tools - Base64 Image Converter</title>
     <link rel="stylesheet" href="style.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Base64 Görsel Dönüştürücü - Shase Tools</title>
 </head>
 <body>
     <header>
-        <h1><i class="fas fa-tools"></i> Shase Tools</h1>
-        <button class="theme-toggle" id="themeToggle">
-            <i class="fas fa-moon"></i> Tema Değiştir
-        </button>
+        <h1>Base64 Görsel Dönüştürücü</h1>
+        <nav>
+            <a href="index.html">Ana Sayfa</a>
+        </nav>
     </header>
 
     <main>
-        <div class="search-container">
-            <input type="text" id="searchTools" placeholder="Araçlarda ara...">
-            <i class="fas fa-search search-icon"></i>
-        </div>
+        <section class="tool-description">
+            <h2>Bu Araç Hakkında</h2>
+            <p>Yüklediğiniz görseli hızlıca base64 formatına dönüştürün ve çıktıyı kopyalayın.</p>
+        </section>
 
-        <!-- Base64 Image Converter -->
-        <section class="tools-category">
-            <div class="category-header" onclick="toggleCategory(this)">
-                <h2><span>🖼️</span> Base64 Image Converter</h2>
-                <i class="fas fa-chevron-down"></i>
+        <section class="tool-container">
+            <!-- Girdi Alanı -->
+            <div class="input-area">
+                <h3>Girdi</h3>
+                <input type="file" id="input" accept="image/*">
             </div>
-            <div class="category-content">
-                <div class="converter-container">
-                    <input type="file" id="imageInput" accept="image/*">
-                    <button onclick="convertToBase64()">Base64'e Çevir</button>
-                    <textarea id="base64Output" placeholder="Base64 kodu burada görünecek..." readonly></textarea>
-                </div>
+
+            <!-- Kontroller -->
+            <div class="controls">
+                <button id="processButton">Dönüştür</button>
+                <button id="clearButton">Temizle</button>
+                <button id="copyInputButton">Girdiyi Kopyala</button>
+            </div>
+
+            <!-- Çıktı Alanı -->
+            <div class="output-area">
+                <h3>Çıktı</h3>
+                <div id="output">Henüz bir çıktı yok.</div>
+                <button id="copyOutputButton">Çıktıyı Kopyala</button>
+            </div>
+        </section>
+
+        <section class="options">
+            <h3>Seçenekler</h3>
+            <div class="option">
+                <label for="option1">Data URI ile ver (başında `data:image/...;base64,`)</label>
+                <input type="checkbox" id="option1" checked>
+            </div>
+            <div class="option">
+                <label for="option2">Sadece base64 string</label>
+                <input type="checkbox" id="option2">
+            </div>
+        </section>
+
+        <section class="instructions">
+            <h3>Nasıl Kullanılır?</h3>
+            <ol>
+                <li>Bir görsel dosyası seçin.</li>
+                <li>"Dönüştür" butonuna tıklayın.</li>
+                <li>Çıktıyı kopyalayarak kullanın.</li>
+            </ol>
+        </section>
+
+        <section class="examples">
+            <h3>Örnekler</h3>
+            <div class="example">
+                <h4>Örnek 1</h4>
+                <div class="example-input">dosya: resim.jpg</div>
+                <div class="example-output">data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD...</div>
             </div>
         </section>
     </main>
 
+    <footer>
+        <p>&copy; 2025 Metin ve Kod Araçları. Tüm Hakları Saklıdır.</p>
+    </footer>
+
     <script>
-        function toggleCategory(category) {
-            const content = category.nextElementSibling;
-            const icon = category.querySelector('i');
-            content.classList.toggle('active');
-            icon.classList.toggle('fa-chevron-down');
-            icon.classList.toggle('fa-chevron-up');
-        }
+        let base64String = '';
 
-        function convertToBase64() {
-            const fileInput = document.getElementById('imageInput');
-            const file = fileInput.files[0];
-
-            if (!file) {
-                alert('Lütfen bir resim seçin!');
-                return;
-            }
+        document.getElementById('processButton').addEventListener('click', function() {
+            const file = document.getElementById('input').files[0];
+            if (!file) return alert('Lütfen bir görsel seçin.');
 
             const reader = new FileReader();
-            reader.onloadend = function () {
-                const base64String = reader.result.split(',')[1];
-                document.getElementById('base64Output').value = base64String;
+            reader.onloadend = function() {
+                base64String = reader.result;
+                const option1 = document.getElementById('option1').checked;
+                const output = option1 ? base64String : base64String.split(',')[1];
+                document.getElementById('output').textContent = output;
             };
             reader.readAsDataURL(file);
+        });
+
+        document.getElementById('clearButton').addEventListener('click', function() {
+            document.getElementById('input').value = '';
+            document.getElementById('output').textContent = 'Henüz bir çıktı yok.';
+            base64String = '';
+        });
+
+        document.getElementById('copyInputButton').addEventListener('click', function() {
+            const fileName = document.getElementById('input').files[0]?.name;
+            if (fileName) {
+                copyToClipboard(fileName);
+            } else {
+                alert('Seçili dosya yok.');
+            }
+        });
+
+        document.getElementById('copyOutputButton').addEventListener('click', function() {
+            if (!base64String) return alert('Henüz çıktı yok.');
+            const option1 = document.getElementById('option1').checked;
+            const output = option1 ? base64String : base64String.split(',')[1];
+            copyToClipboard(output);
+        });
+
+        function copyToClipboard(text) {
+            navigator.clipboard.writeText(text)
+                .then(() => alert('Kopyalandı!'))
+                .catch(err => console.error('Kopyalama hatası:', err));
         }
     </script>
 </body>
