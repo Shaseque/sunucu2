@@ -2,116 +2,76 @@
 <html lang="tr">
 <head>
     <meta charset="UTF-8">
-    <link rel="stylesheet" href="style.css">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Gelişmiş Hesap Makinesi - Shase Tools</title>
+    <title>Basit Hesap Makinesi - Shase Tools</title>
 </head>
 <body>
-    <header>
-        <h1>Gelişmiş Hesap Makinesi</h1>
-        <nav>
-            <a href="index.html">Ana Sayfa</a>
-        </nav>
-    </header>
+    <h1>Basit Hesap Makinesi</h1>
 
-    <main>
-        <section class="tool-description">
-            <h2>Bu Araç Hakkında</h2>
-            <p>Matematiksel ifadeleri çözebilen gelişmiş bir hesap makinesi. Parantez, trigonometrik fonksiyonlar, logaritmalar, üsler, kökler desteklenir.</p>
-        </section>
+    <div>
+        <input type="text" id="display" readonly>
+    </div>
 
-        <section class="tool-container">
-            <div class="input-area">
-                <h3>İfade</h3>
-                <textarea id="input" placeholder="Örn: sin(45) + log(10) * sqrt(16)"></textarea>
-            </div>
+    <div id="buttons">
+        <button onclick="press('7')">7</button>
+        <button onclick="press('8')">8</button>
+        <button onclick="press('9')">9</button>
+        <button onclick="press('/')">/</button>
 
-            <div class="controls">
-                <button id="processButton">Hesapla</button>
-                <button id="clearButton">Temizle</button>
-                <button id="copyInputButton">Girdiyi Kopyala</button>
-            </div>
+        <button onclick="press('4')">4</button>
+        <button onclick="press('5')">5</button>
+        <button onclick="press('6')">6</button>
+        <button onclick="press('*')">*</button>
 
-            <div class="output-area">
-                <h3>Sonuç</h3>
-                <div id="output">Henüz bir çıktı yok.</div>
-                <button id="copyOutputButton">Çıktıyı Kopyala</button>
-            </div>
-        </section>
+        <button onclick="press('1')">1</button>
+        <button onclick="press('2')">2</button>
+        <button onclick="press('3')">3</button>
+        <button onclick="press('-')">-</button>
 
-        <section class="instructions">
-            <h3>Nasıl Kullanılır?</h3>
-            <ol>
-                <li>İfade gir: Örneğin <code>sin(30) + sqrt(9)</code></li>
-                <li>"Hesapla" butonuna bas</li>
-                <li>Sonucu kopyala ve kullan</li>
-            </ol>
-        </section>
+        <button onclick="press('0')">0</button>
+        <button onclick="press('.')">.</button>
+        <button onclick="calculate()">=</button>
+        <button onclick="press('+')">+</button>
 
-        <section class="examples">
-            <h3>Örnekler</h3>
-            <div class="example">
-                <h4>Örnek 1</h4>
-                <div class="example-input">cos(60) + 2^3</div>
-                <div class="example-output">5.5</div>
-            </div>
-            <div class="example">
-                <h4>Örnek 2</h4>
-                <div class="example-input">sqrt(49) + log(100)</div>
-                <div class="example-output">9</div>
-            </div>
-        </section>
-    </main>
-
-    <footer>
-        <p>&copy; 2025 Metin ve Kod Araçları. Tüm Hakları Saklıdır.</p>
-    </footer>
+        <button onclick="clearDisplay()">C</button>
+        <button onclick="deleteLast()">⌫</button>
+    </div>
 
     <script>
-        document.getElementById('processButton').addEventListener('click', () => {
-            const input = document.getElementById('input').value;
-            let output = '';
+        const display = document.getElementById('display');
 
+        function press(char) {
+            display.value += char;
+        }
+
+        function calculate() {
             try {
-                const sanitized = input
-                    .replace(/sin\(/g, 'Math.sin(toRad(')
-                    .replace(/cos\(/g, 'Math.cos(toRad(')
-                    .replace(/tan\(/g, 'Math.tan(toRad(')
-                    .replace(/sqrt\(/g, 'Math.sqrt(')
-                    .replace(/log\(/g, 'Math.log10(')
-                    .replace(/ln\(/g, 'Math.log(')
-                    .replace(/([0-9])\^([0-9])/g, 'Math.pow($1,$2)');
-
-                output = eval(sanitized);
-            } catch (e) {
-                output = 'Hesaplama hatası: ' + e.message;
+                display.value = eval(display.value);
+            } catch {
+                display.value = 'Hata';
             }
-
-            document.getElementById('output').textContent = output;
-        });
-
-        document.getElementById('clearButton').addEventListener('click', () => {
-            document.getElementById('input').value = '';
-            document.getElementById('output').textContent = 'Henüz bir çıktı yok.';
-        });
-
-        document.getElementById('copyInputButton').addEventListener('click', () => {
-            copyToClipboard(document.getElementById('input').value);
-        });
-
-        document.getElementById('copyOutputButton').addEventListener('click', () => {
-            copyToClipboard(document.getElementById('output').textContent);
-        });
-
-        function copyToClipboard(text) {
-            navigator.clipboard.writeText(text)
-                .then(() => alert('Kopyalandı!'))
-                .catch(err => console.error('Kopyalama hatası:', err));
         }
 
-        function toRad(deg) {
-            return deg * Math.PI / 180;
+        function clearDisplay() {
+            display.value = '';
         }
+
+        function deleteLast() {
+            display.value = display.value.slice(0, -1);
+        }
+
+        // Klavye desteği
+        document.addEventListener('keydown', e => {
+            if ('0123456789+-*/.'.includes(e.key)) {
+                press(e.key);
+            } else if (e.key === 'Enter') {
+                calculate();
+            } else if (e.key === 'Backspace') {
+                deleteLast();
+            } else if (e.key === 'Escape') {
+                clearDisplay();
+            }
+        });
     </script>
+    <link rel="stylesheet" href="style.css">
 </body>
 </html>
