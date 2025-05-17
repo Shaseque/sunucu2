@@ -1,1 +1,36 @@
 .DS_Store
+# Gereksiz sistem dosyaları
+
+*.tmp
+*.bak
+*.lock
+
+# IDE dosyaları
+.idea/
+.vscode/
+*.iml
+
+# Sunucu logları ve cache
+logs/
+*.log
+*.gz
+cache/
+
+# Plugin içi çöpler
+plugins/*/logs/
+plugins/*/cache/
+plugins/*/*.yml.old
+plugins/*/*.log
+
+# Yedek dosyaları
+*.zip
+*.bak
+
+# !!! KALMASI GEREKENLER:
+# - world/
+# - plugins/
+# - start.sh, backup.sh, configler
+# - paper.jar hariç tüm kodların kalması isteniyor
+
+# paper.jar ignore
+paper.jar
