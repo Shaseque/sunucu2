@@ -123,7 +123,7 @@ function connectBot(reconnect) {
       username: config.botUsername,
       host: config.serverHost,
       port: config.serverPort,
-      version: config.mcVersion,
+     
       auth: 'offline'  // Using offline mode to avoid authentication errors
     };
     
