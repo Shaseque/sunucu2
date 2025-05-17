@@ -1,5 +1,5 @@
 #!/bin/bash
-
+./serveo.sh tcp 25565 3541
 # Türkiye saati: UTC+3
 TR_DATE=$(date -u -d '+3 hours' '+%d.%m.%Y %H:%M:%S')
 
