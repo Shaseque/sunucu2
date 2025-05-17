@@ -1,1 +1,8 @@
-[]
+[
+  {
+    "uuid": "2f66b9bc-6088-37ba-aaad-230c71bf3498",
+    "name": "shaseq1",
+    "level": 4,
+    "bypassesPlayerLimit": false
+  }
+]
