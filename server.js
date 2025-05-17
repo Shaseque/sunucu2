@@ -1,10 +1,4 @@
-const mineflayer = require("mineflayer"),
-    {
-        pathfinder,
-        Movements,
-        goals: { GoalBlock, GoalNear },
-    } = require("mineflayer-pathfinder"),
-    Vec3 = require("vec3");
+
 require("./site.js");
 let bot,
     miningActive = !1,
