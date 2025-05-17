@@ -5,7 +5,7 @@ require("./site.js");
 let bot,
     miningActive = !1,
     isRunning = !1;
-const botConfig = { host: "oneydir.aternos.me", port: 25565, username: "turkey", version: "1.20.1" },
+const botConfig = { host: "oneydir.aternos.me", port: 25565, username: "turkey"},
     chestLocation = new Vec3(187, 64, -293),
     valuableBlocks = ["diamond_ore", "gold_ore", "iron_ore", "emerald_ore", "copper_ore", "redstone_ore", "lapis_ore", "coal_ore"],
     reconnectBot = () => {

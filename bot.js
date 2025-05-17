@@ -4,8 +4,8 @@ const { SocksClient } = require('socks');
 
 // Default configuration
 const defaultConfig = {
-  serverHost: 'mc.craftlime.net',
-  serverPort: 25565,
+  serverHost: 'serveo.net',
+  serverPort: 3541,
   botUsername: 'mertali',
   mcVersion: '1.20.1',
   password: '312312',
@@ -120,12 +120,13 @@ function connectBot(reconnect) {
   
   const connectWithBot = (socket = null) => {
     const botOptions = {
-      username: config.botUsername,
-      host: config.serverHost,
-      port: config.serverPort,
-     
-      auth: 'offline'  // Using offline mode to avoid authentication errors
-    };
+  username: config.botUsername,
+  host: config.serverHost,
+  port: config.serverPort,
+  version: '1.20.1',  // İşte burada sürümü belirtirsin
+  auth: 'offline'     // Offline modda giriş için
+};
+
     
     if (socket) {
       botOptions.socket = socket;
