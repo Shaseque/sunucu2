@@ -25,4 +25,4 @@ java \
   -XX:MaxTenuringThreshold=1 \
   -Dusing.aikars.flags=true \
   -Dcom.mojang.eula.agree=true \
-  -jar 31311.jar nogui < /tmp/mc_input.fifo
+  -jar 31311.jar nogui 
