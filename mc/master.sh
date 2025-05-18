@@ -25,12 +25,20 @@ kill $PID1 2>/dev/null
 kill $PID3 2>/dev/null
 echo "🔪 com.sh ve serveo.sh öldürüldü"
 
-# Minecraft konsoluna save komutu gönder
+# Oyunculara mesaj gönder
+echo "say [SERVER] Sunucu 20 saniye içinde kapanacak. Veriler kaydediliyor!" > /tmp/mc_input.fifo
+sleep 2
+
+# Tüm oyuncuları at
+echo "kick @a Sunucu kapanıyor. 20 saniye içinde tekrar giriş yapmayın." > /tmp/mc_input.fifo
+echo "👢 Oyuncular atıldı"
+
+# save-all gönder
 echo "save-all" > /tmp/mc_input.fifo
 echo "📝 save-all gönderildi, 20 sn bekleniyor..."
 sleep 20
 
-# Ardından stop komutu gönder
+# stop komutu gönder
 echo "stop" > /tmp/mc_input.fifo
 echo "🛑 stop komutu gönderildi, MC kapanıyor..."
 
@@ -43,9 +51,6 @@ exit 0
 # Minecraft için input FIFO dosyası hazırla
 rm -f /tmp/mc_input.fifo
 mkfifo /tmp/mc_input.fifo
-
-# start.sh içinde bunu kullanarak başlat:
-# java -jar server.jar < /tmp/mc_input.fifo
 
 # Bekle
 wait $PID1
