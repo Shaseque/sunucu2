@@ -4,7 +4,7 @@ echo "Starting PaperMC Server..."
 # Java optimizasyon flag'leri (Açıklamalar aşağıda)
 java \
   -server \
-  -Xms4G -Xmx4G \
+  -Xms4G -Xmx8G \
   -XX:+UseG1GC \
   -XX:+ParallelRefProcEnabled \
   -XX:MaxGCPauseMillis=200 \
