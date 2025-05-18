@@ -1,11 +1,10 @@
 #!/bin/bash
 
-# Log klasörü kontrolü
 mkdir -p logs
 
 echo "🚀 Scriptler başlatılıyor..."
 
-# Scriptleri başlat ve PID’lerini al
+# PID'leri saklayalım
 bash com.sh > logs/com.log 2>&1 & 
 PID1=$!
 echo "✅ com.sh COMMIT başlatıldı (PID: $PID1)"
@@ -18,7 +17,37 @@ bash serveo.sh tcp 25565 3541 > logs/serveo.log 2>&1 &
 PID3=$!
 echo "✅ serveo.sh başlatıldı (PID: $PID3)"
 
-# Tüm scriptler bitene kadar bekle
+# CTRL+C'yi yakala
+trap 'echo "🧨 CTRL+C yakalandı! Düzgünce kapatılıyor..."
+
+# com.sh ve serveo.sh direkt öldür
+kill $PID1 2>/dev/null
+kill $PID3 2>/dev/null
+echo "🔪 com.sh ve serveo.sh öldürüldü"
+
+# Minecraft konsoluna save komutu gönder
+echo "save-all" > /tmp/mc_input.fifo
+echo "📝 save-all gönderildi, 20 sn bekleniyor..."
+sleep 20
+
+# Ardından stop komutu gönder
+echo "stop" > /tmp/mc_input.fifo
+echo "🛑 stop komutu gönderildi, MC kapanıyor..."
+
+wait $PID2
+echo "✅ Minecraft kapandı"
+
+exit 0
+' SIGINT
+
+# Minecraft için input FIFO dosyası hazırla
+rm -f /tmp/mc_input.fifo
+mkfifo /tmp/mc_input.fifo
+
+# start.sh içinde bunu kullanarak başlat:
+# java -jar server.jar < /tmp/mc_input.fifo
+
+# Bekle
 wait $PID1
 echo "🛑 com.sh tamamlandı"
 

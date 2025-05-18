@@ -1,7 +1,7 @@
 #!/bin/bash
 echo "Starting PaperMC Server..."
 
-# Java optimizasyon flag'leri (Açıklamalar aşağıda)
+# stdin'den komut almak için FIFO'dan input ver
 java \
   -server \
   -Xms4G -Xmx12G \
@@ -25,4 +25,4 @@ java \
   -XX:MaxTenuringThreshold=1 \
   -Dusing.aikars.flags=true \
   -Dcom.mojang.eula.agree=true \
-  -jar 31311.jar nogui
+  -jar 31311.jar nogui < /tmp/mc_input.fifo
