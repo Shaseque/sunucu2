@@ -14,7 +14,7 @@ bash baslat.sh > logs/baslat.log 2>&1 &
 PID2=$!
 echo "✅ baslat.sh başlatıldı (PID: $PID2)"
 
-bash serveo.sh > logs/serveo.log 2>&1 &
+bash serveo.sh tcp 25565 3541 > logs/serveo.log 2>&1 &
 PID3=$!
 echo "✅ serveo.sh başlatıldı (PID: $PID3)"
 
