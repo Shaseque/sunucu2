@@ -20,7 +20,8 @@
   "minecraft:adventure/kill_all_mobs": {
     "criteria": {
       "minecraft:skeleton": "2025-05-19 11:28:26 +0000",
-      "minecraft:stray": "2025-05-19 11:28:00 +0000"
+      "minecraft:stray": "2025-05-19 11:28:00 +0000",
+      "minecraft:zombie": "2025-05-19 11:39:41 +0000"
     },
     "done": false
   },
