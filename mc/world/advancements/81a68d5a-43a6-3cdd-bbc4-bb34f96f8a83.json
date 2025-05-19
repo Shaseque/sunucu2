@@ -17,5 +17,17 @@
     },
     "done": true
   },
+  "minecraft:adventure/kill_all_mobs": {
+    "criteria": {
+      "minecraft:zombie": "2025-05-19 11:37:08 +0000"
+    },
+    "done": false
+  },
+  "minecraft:adventure/kill_a_mob": {
+    "criteria": {
+      "minecraft:zombie": "2025-05-19 11:37:08 +0000"
+    },
+    "done": true
+  },
   "DataVersion": 3465
 }
