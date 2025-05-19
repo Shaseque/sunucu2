@@ -1,7 +1,11 @@
 #!/bin/bash
 echo "Starting PaperMC Server..."
 
-# stdin'den komut almak için FIFO'dan input ver
+# FIFO varsa temizle
+rm -f /tmp/mc_input.fifo
+mkfifo /tmp/mc_input.fifo
+
+# Java'ya stdin olarak FIFO ver, stdout'u aynen bırak
 java \
   -server \
   -Xms4G -Xmx12G \
@@ -25,4 +29,4 @@ java \
   -XX:MaxTenuringThreshold=1 \
   -Dusing.aikars.flags=true \
   -Dcom.mojang.eula.agree=true \
-  -jar 31311.jar nogui 
+  -jar 31311.jar nogui < /tmp/mc_input.fifo
