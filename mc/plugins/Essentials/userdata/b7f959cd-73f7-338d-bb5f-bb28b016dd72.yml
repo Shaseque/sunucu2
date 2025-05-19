@@ -16,18 +16,18 @@ timestamps:
   mute: 0
   jail: 0
   onlinejail: 0
-  logout: 1747653237259
+  logout: 1747653549965
   login: 1747653324112
 money: '0'
 last-account-name: Bot_13
 logoutlocation:
   world: 220a7efe-4e4f-476b-83b5-18cad361dc83
   world-name: world
-  x: -698.6023020628804
-  y: 63.0
-  z: -24.786965437901344
-  yaw: -94.5
-  pitch: 15.600000381469727
+  x: -534.3
+  y: 82.0
+  z: 278.50000000000006
+  yaw: 90.0
+  pitch: -0.0
 lastlocation:
   world: 220a7efe-4e4f-476b-83b5-18cad361dc83
   world-name: world
