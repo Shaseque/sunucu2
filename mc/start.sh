@@ -1,11 +1,7 @@
 #!/bin/bash
 echo "Starting PaperMC Server..."
 
-# FIFO varsa temizle
-rm -f /tmp/mc_input.fifo
-mkfifo /tmp/mc_input.fifo
-
-# Java'ya stdin olarak FIFO ver, stdout'u aynen bırak
+# FIFO'yu silme! Sadece kullan!
 java \
   -server \
   -Xms4G -Xmx12G \
