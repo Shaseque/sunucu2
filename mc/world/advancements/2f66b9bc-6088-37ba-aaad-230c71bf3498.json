@@ -42,7 +42,8 @@
       "minecraft:spider": "2025-05-18 13:25:48 +0300",
       "minecraft:creeper": "2025-05-18 01:02:51 +0300",
       "minecraft:stray": "2025-05-19 14:30:49 +0300",
-      "minecraft:zombie": "2025-05-18 13:14:24 +0300"
+      "minecraft:zombie": "2025-05-18 13:14:24 +0300",
+      "minecraft:zombie_villager": "2025-06-05 17:04:15 +0300"
     },
     "done": false
   },
