@@ -11,25 +11,42 @@
 # Forums: http://www.spigotmc.org/
 
 messages:
-  whitelist: '[GONYA] ❌ Bu sunucuda yalnızca özel üyeler oynayabiliyor. Ne yazık ki whitelist’te yer almıyorsun. Erişim için bir yetkiliyle iletişime geçebilirsin.'
-  unknown-command: '[GONYA] 🤖 Komut tanımlanamadı. Lütfen geçerli bir komut kullandığından emin ol. Yardım almak için "/help" yazabilirsin.'
-  server-full: '[GONYA] 🚪 Sunucu şu anda tamamen dolu. Lütfen daha sonra tekrar dene ya da VIP erişim satın alarak her zaman giriş yapma ayrıcalığına sahip ol.'
-  outdated-client: '[GONYA] ⚠️ Minecraft sürümünüz bu sunucuyla uyumlu değil. Lütfen {0} sürümünü kullanarak yeniden giriş yapmayı deneyin.'
-  outdated-server: '[GONYA] ⏳ Sunucu hâlâ {0} sürümünde çalışıyor. Geliştirici ekibimiz güncellemeler üzerinde çalışıyor, sabrınız için teşekkürler.'
-  restart: '[GONYA] ♻️ Sunucu planlı bir bakım nedeniyle yeniden başlatılıyor. Lütfen bağlantınızı kesmeden birkaç dakika bekleyiniz. Yeniden birlikteyiz!'
-  no-permission: '[GONYA] 🔒 Bu işlemi gerçekleştirmek için yeterli izne sahip değilsin. Eğer bu bir hata olduğunu düşünüyorsan, yöneticinle iletişime geç.'
-  player-not-found: '[GONYA] 🔍 Belirtilen oyuncu sunucuda bulunamadı. Oyuncu çevrimdışı olabilir ya da ismi hatalı girilmiş olabilir.'
-  kick-message: '[GONYA] ❗ Sunucudan çıkarıldın. Bu bir otomatik işlem veya moderatör müdahalesi olabilir. Detaylı bilgi için destek ekibine ulaşabilirsin.'
-  ban-message: '[GONYA] ⛔ Bu sunucudan kalıcı veya geçici olarak yasaklandın. Sebebini bilmiyorsan, destek talebi oluşturabilirsin.'
-  motd: '[GONYA] 🏰 Hoş geldin! Gelişmiş sistemler, adaletli moderasyon ve kaliteli oyuncu topluluğuyla yeni nesil Minecraft deneyimi seni bekliyor.'
+  whitelist: '[GONYA] ❌ Bu sunucuda yalnızca özel üyeler oynayabiliyor. Ne yazık ki
+    whitelist’te yer almıyorsun. Erişim için bir yetkiliyle iletişime geçebilirsin.'
+  unknown-command: '[GONYA] 🤖 Komut tanımlanamadı. Lütfen geçerli bir komut kullandığından
+    emin ol. Yardım almak için "/help" yazabilirsin.'
+  server-full: '[GONYA] 🚪 Sunucu şu anda tamamen dolu. Lütfen daha sonra tekrar dene
+    ya da VIP erişim satın alarak her zaman giriş yapma ayrıcalığına sahip ol.'
+  outdated-client: '[GONYA] ⚠️ Minecraft sürümünüz bu sunucuyla uyumlu değil. Lütfen
+    {0} sürümünü kullanarak yeniden giriş yapmayı deneyin.'
+  outdated-server: '[GONYA] ⏳ Sunucu hâlâ {0} sürümünde çalışıyor. Geliştirici ekibimiz
+    güncellemeler üzerinde çalışıyor, sabrınız için teşekkürler.'
+  restart: '[GONYA] ♻️ Sunucu planlı bir bakım nedeniyle yeniden başlatılıyor. Lütfen
+    bağlantınızı kesmeden birkaç dakika bekleyiniz. Yeniden birlikteyiz!'
+  no-permission: '[GONYA] 🔒 Bu işlemi gerçekleştirmek için yeterli izne sahip değilsin.
+    Eğer bu bir hata olduğunu düşünüyorsan, yöneticinle iletişime geç.'
+  player-not-found: '[GONYA] 🔍 Belirtilen oyuncu sunucuda bulunamadı. Oyuncu çevrimdışı
+    olabilir ya da ismi hatalı girilmiş olabilir.'
+  kick-message: '[GONYA] ❗ Sunucudan çıkarıldın. Bu bir otomatik işlem veya moderatör
+    müdahalesi olabilir. Detaylı bilgi için destek ekibine ulaşabilirsin.'
+  ban-message: '[GONYA] ⛔ Bu sunucudan kalıcı veya geçici olarak yasaklandın. Sebebini
+    bilmiyorsan, destek talebi oluşturabilirsin.'
+  motd: '[GONYA] 🏰 Hoş geldin! Gelişmiş sistemler, adaletli moderasyon ve kaliteli
+    oyuncu topluluğuyla yeni nesil Minecraft deneyimi seni bekliyor.'
   join-message: '[GONYA] ✅ {player} sunucuya katıldı. Premium deneyime hoş geldin!'
   leave-message: '[GONYA] ❎ {player} sunucudan ayrıldı. Yakında tekrar görüşmek üzere.'
-  death-message: '[GONYA] ⚰️ {player}, Minecraft evrenine veda etti. Kayıtlarımıza geçti.'
-  chat-muted: '[GONYA] 🔇 Şu anda sohbet moduna geçici olarak kısıtlama getirildi. Moderasyon güvenliği için anlayışınız için teşekkür ederiz.'
-  warp-failed: '[GONYA] 📍 Warp işlemi gerçekleştirilemedi. Hedef alan geçersiz ya da erişim yetkin bulunmuyor olabilir.'
-  premium-required: '[GONYA] 💎 Bu özelliğe erişim yalnızca Premium kullanıcılara açıktır. Daha fazla bilgi için /premium yazabilirsin.'
-  pvp-disabled: '[GONYA] ⚔️ Bu bölgede PvP kapalıdır. Lütfen barışçıl kalmaya devam edin.'
-  build-denied: '[GONYA] 🚫 Bu bölgede inşa izniniz yok. İzin almak için yöneticiyle iletişime geçin.'
+  death-message: '[GONYA] ⚰️ {player}, Minecraft evrenine veda etti. Kayıtlarımıza
+    geçti.'
+  chat-muted: '[GONYA] 🔇 Şu anda sohbet moduna geçici olarak kısıtlama getirildi.
+    Moderasyon güvenliği için anlayışınız için teşekkür ederiz.'
+  warp-failed: '[GONYA] 📍 Warp işlemi gerçekleştirilemedi. Hedef alan geçersiz ya
+    da erişim yetkin bulunmuyor olabilir.'
+  premium-required: '[GONYA] 💎 Bu özelliğe erişim yalnızca Premium kullanıcılara
+    açıktır. Daha fazla bilgi için /premium yazabilirsin.'
+  pvp-disabled: '[GONYA] ⚔️ Bu bölgede PvP kapalıdır. Lütfen barışçıl kalmaya devam
+    edin.'
+  build-denied: '[GONYA] 🚫 Bu bölgede inşa izniniz yok. İzin almak için yöneticiyle
+    iletişime geçin.'
 
 advancements:
   disable-saving: false
@@ -46,7 +63,7 @@ settings:
   user-cache-size: 1000
   moved-wrongly-threshold: 0.0625
   moved-too-quickly-multiplier: 10.0
-  netty-threads: 4
+  netty-threads: 7
   attribute:
     maxHealth:
       max: 2048.0
