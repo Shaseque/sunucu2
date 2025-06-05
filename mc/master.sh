@@ -13,9 +13,9 @@ bash com.sh > logs/com.log 2>&1 &
 PID1=$!
 echo "✅ com.sh COMMIT başlatıldı (PID: $PID1)"
 
-bash pagekite.py 25565 minecraft:hadiplaymc.pagekite.me  > logs/serveo.log 2>&1 &
+bash playit.gg  > logs/serveo.log 2>&1 &
 PID2=$!
-echo "✅ serveo.sh başlatıldı (PID: $PID2)"
+echo "✅playit başlatıldı (PID: $PID2)"
 
 echo "🌀 Scriptler arka planda çalışıyor. Bu terminali kapatabilirsin."
 
