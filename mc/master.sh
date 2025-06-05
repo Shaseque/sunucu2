@@ -13,7 +13,7 @@ bash com.sh > logs/com.log 2>&1 &
 PID1=$!
 echo "✅ com.sh COMMIT başlatıldı (PID: $PID1)"
 
-bash playit.gg  > logs/serveo.log 2>&1 &
+bash playit  > logs/serveo.log 2>&1 &
 PID2=$!
 echo "✅playit başlatıldı (PID: $PID2)"
 
