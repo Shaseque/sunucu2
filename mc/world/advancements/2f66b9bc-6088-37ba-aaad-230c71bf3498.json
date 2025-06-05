@@ -7,9 +7,12 @@
   },
   "minecraft:adventure/adventuring_time": {
     "criteria": {
+      "minecraft:taiga": "2025-06-05 23:58:30 +0300",
       "minecraft:frozen_river": "2025-05-18 00:35:08 +0300",
       "minecraft:windswept_hills": "2025-05-18 13:27:19 +0300",
       "minecraft:snowy_plains": "2025-05-18 00:29:18 +0300",
+      "minecraft:stony_shore": "2025-06-05 23:59:08 +0300",
+      "minecraft:forest": "2025-06-05 23:58:18 +0300",
       "minecraft:ice_spikes": "2025-05-18 00:35:09 +0300",
       "minecraft:frozen_ocean": "2025-05-18 13:32:39 +0300",
       "minecraft:snowy_beach": "2025-05-18 11:56:43 +0300",
