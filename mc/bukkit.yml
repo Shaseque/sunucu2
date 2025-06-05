@@ -1,19 +1,19 @@
 settings:
   allow-end: true
-  warn-on-overload: false  # Spam log olmasın
+  warn-on-overload: false # Spam log olmasın
   permissions-file: permissions.yml
   update-folder: update
   plugin-profiling: false
-  connection-throttle: -1  # 4000 yerine -1 yaparsan velocity/waterfall ile uyumlu olur
-  query-plugins: false     # Gereksiz bilgi verme
+  connection-throttle: -1 # 4000 yerine -1 yaparsan velocity/waterfall ile uyumlu olur
+  query-plugins: false # Gereksiz bilgi verme
   deprecated-verbose: default
   shutdown-message: Sunucu kapatılıyor...
   minimum-api: none
   use-map-color-cache: true
 
 spawn-limits:
-  monsters: 40       # 70 çok fazla, düşür
-  animals: 4         # Gereksiz yük
+  monsters: 40 # 70 çok fazla, düşür
+  animals: 4 # Gereksiz yük
   water-animals: 2
   water-ambient: 5
   water-underground-creature: 2
@@ -21,16 +21,16 @@ spawn-limits:
   ambient: 3
 
 chunk-gc:
-  period-in-ticks: 400  # Daha sık chunk temizliği
+  period-in-ticks: 400 # Daha sık chunk temizliği
 
 ticks-per:
-  animal-spawns: 800     # Daha seyrek hayvan spawnı
-  monster-spawns: 10     # 1 yerine 10 yap, FPS ve CPU rahatlar
+  animal-spawns: 800 # Daha seyrek hayvan spawnı
+  monster-spawns: 10 # 1 yerine 10 yap, FPS ve CPU rahatlar
   water-spawns: 20
   water-ambient-spawns: 40
   water-underground-creature-spawns: 40
   axolotl-spawns: 40
   ambient-spawns: 40
-  autosave: 12000        # 6000 yerine 12000 daha az disk yazımı
+  autosave: 12000 # 6000 yerine 12000 daha az disk yazımı
 
 aliases: now-in-commands.yml
