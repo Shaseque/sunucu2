@@ -1,36 +1,36 @@
 settings:
   allow-end: true
-  warn-on-overload: false # Spam log olmasın
+  warn-on-overload: false
   permissions-file: permissions.yml
   update-folder: update
   plugin-profiling: false
-  connection-throttle: -1 # 4000 yerine -1 yaparsan velocity/waterfall ile uyumlu olur
-  query-plugins: false # Gereksiz bilgi verme
+  connection-throttle: -1
+  query-plugins: false
   deprecated-verbose: default
   shutdown-message: Sunucu kapatılıyor...
   minimum-api: none
   use-map-color-cache: true
 
 spawn-limits:
-  monsters: 40 # 70 çok fazla, düşür
-  animals: 4 # Gereksiz yük
-  water-animals: 2
-  water-ambient: 5
-  water-underground-creature: 2
-  axolotls: 2
-  ambient: 3
+  monsters: 80        # Herkese yetecek kadar zombi olsun
+  animals: 10         # Bi' tarafımız National Geographic gibi olmasın ama boş da kalmasın
+  water-animals: 5
+  water-ambient: 8
+  water-underground-creature: 4
+  axolotls: 4
+  ambient: 6
 
 chunk-gc:
-  period-in-ticks: 400 # Daha sık chunk temizliği
+  period-in-ticks: 700  # Chunk'ları daha uzun süre bellekte tut, uçarken takılma olmasın
 
 ticks-per:
-  animal-spawns: 800 # Daha seyrek hayvan spawnı
-  monster-spawns: 10 # 1 yerine 10 yap, FPS ve CPU rahatlar
-  water-spawns: 20
-  water-ambient-spawns: 40
-  water-underground-creature-spawns: 40
-  axolotl-spawns: 40
-  ambient-spawns: 40
-  autosave: 12000 # 6000 yerine 12000 daha az disk yazımı
+  animal-spawns: 400     # Sık ama abartmadan spawn
+  monster-spawns: 3      # Geceleri biraz zorlaşsın
+  water-spawns: 15
+  water-ambient-spawns: 30
+  water-underground-creature-spawns: 30
+  axolotl-spawns: 30
+  ambient-spawns: 20
+  autosave: 7200         # 6 dakikada bir kaydet, lag yaratmaz
 
 aliases: now-in-commands.yml
