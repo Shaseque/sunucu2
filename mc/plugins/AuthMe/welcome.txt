@@ -1,3 +1,2 @@
-Welcome {PLAYER} on {SERVER} server
-
-This server uses AuthMeReloaded protection!
+{PLAYER}, {SERVER} sunucusuna hoş geldin!
+Keyfine bak, bol bol eğlen!
