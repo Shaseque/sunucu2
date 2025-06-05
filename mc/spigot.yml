@@ -11,12 +11,26 @@
 # Forums: http://www.spigotmc.org/
 
 messages:
-  whitelist: You are not whitelisted on this server!
-  unknown-command: Unknown command. Type "/help" for help.
-  server-full: The server is full!
-  outdated-client: Outdated client! Please use {0}
-  outdated-server: Outdated server! I'm still on {0}
-  restart: Server is restarting
+  whitelist: '[GONYA] ❌ Bu sunucuda yalnızca özel üyeler oynayabiliyor. Ne yazık ki whitelist’te yer almıyorsun. Erişim için bir yetkiliyle iletişime geçebilirsin.'
+  unknown-command: '[GONYA] 🤖 Komut tanımlanamadı. Lütfen geçerli bir komut kullandığından emin ol. Yardım almak için "/help" yazabilirsin.'
+  server-full: '[GONYA] 🚪 Sunucu şu anda tamamen dolu. Lütfen daha sonra tekrar dene ya da VIP erişim satın alarak her zaman giriş yapma ayrıcalığına sahip ol.'
+  outdated-client: '[GONYA] ⚠️ Minecraft sürümünüz bu sunucuyla uyumlu değil. Lütfen {0} sürümünü kullanarak yeniden giriş yapmayı deneyin.'
+  outdated-server: '[GONYA] ⏳ Sunucu hâlâ {0} sürümünde çalışıyor. Geliştirici ekibimiz güncellemeler üzerinde çalışıyor, sabrınız için teşekkürler.'
+  restart: '[GONYA] ♻️ Sunucu planlı bir bakım nedeniyle yeniden başlatılıyor. Lütfen bağlantınızı kesmeden birkaç dakika bekleyiniz. Yeniden birlikteyiz!'
+  no-permission: '[GONYA] 🔒 Bu işlemi gerçekleştirmek için yeterli izne sahip değilsin. Eğer bu bir hata olduğunu düşünüyorsan, yöneticinle iletişime geç.'
+  player-not-found: '[GONYA] 🔍 Belirtilen oyuncu sunucuda bulunamadı. Oyuncu çevrimdışı olabilir ya da ismi hatalı girilmiş olabilir.'
+  kick-message: '[GONYA] ❗ Sunucudan çıkarıldın. Bu bir otomatik işlem veya moderatör müdahalesi olabilir. Detaylı bilgi için destek ekibine ulaşabilirsin.'
+  ban-message: '[GONYA] ⛔ Bu sunucudan kalıcı veya geçici olarak yasaklandın. Sebebini bilmiyorsan, destek talebi oluşturabilirsin.'
+  motd: '[GONYA] 🏰 Hoş geldin! Gelişmiş sistemler, adaletli moderasyon ve kaliteli oyuncu topluluğuyla yeni nesil Minecraft deneyimi seni bekliyor.'
+  join-message: '[GONYA] ✅ {player} sunucuya katıldı. Premium deneyime hoş geldin!'
+  leave-message: '[GONYA] ❎ {player} sunucudan ayrıldı. Yakında tekrar görüşmek üzere.'
+  death-message: '[GONYA] ⚰️ {player}, Minecraft evrenine veda etti. Kayıtlarımıza geçti.'
+  chat-muted: '[GONYA] 🔇 Şu anda sohbet moduna geçici olarak kısıtlama getirildi. Moderasyon güvenliği için anlayışınız için teşekkür ederiz.'
+  warp-failed: '[GONYA] 📍 Warp işlemi gerçekleştirilemedi. Hedef alan geçersiz ya da erişim yetkin bulunmuyor olabilir.'
+  premium-required: '[GONYA] 💎 Bu özelliğe erişim yalnızca Premium kullanıcılara açıktır. Daha fazla bilgi için /premium yazabilirsin.'
+  pvp-disabled: '[GONYA] ⚔️ Bu bölgede PvP kapalıdır. Lütfen barışçıl kalmaya devam edin.'
+  build-denied: '[GONYA] 🚫 Bu bölgede inşa izniniz yok. İzin almak için yöneticiyle iletişime geçin.'
+
 advancements:
   disable-saving: false
   disabled:
@@ -26,13 +40,13 @@ settings:
   restart-on-crash: true
   restart-script: ./start.sh
   save-user-cache-on-stop-only: true
-  sample-count: 8
+  sample-count: 12
   bungeecord: false
   player-shuffle: 0
-  user-cache-size: 500
-  moved-wrongly-threshold: 0.125
-  moved-too-quickly-multiplier: 20.0
-  netty-threads: 8
+  user-cache-size: 1000
+  moved-wrongly-threshold: 0.0625
+  moved-too-quickly-multiplier: 10.0
+  netty-threads: 4
   attribute:
     maxHealth:
       max: 2048.0
@@ -76,97 +90,97 @@ world-settings:
       sprint-multiplier: 0.1
       other-multiplier: 0.0
     below-zero-generation-in-existing-chunks: true
-    view-distance: default
-    simulation-distance: default
+    view-distance: 8
+    simulation-distance: 6
     
     thunder-chance: 100000
     merge-radius:
-      item: 2.0
-      exp: 3.0
+      item: 3.5
+      exp: 4.0
     
-    mob-spawn-range: 4
-    item-despawn-rate: 4000
-    arrow-despawn-rate: 300
-    trident-despawn-rate: 300
+    mob-spawn-range: 6
+    item-despawn-rate: 3000
+    arrow-despawn-rate: 200
+    trident-despawn-rate: 200
     
     nerf-spawner-mobs: true
     wither-spawn-sound-radius: 0
     end-portal-sound-radius: 0
-    hanging-tick-frequency: 400
+    hanging-tick-frequency: 200
     
     growth:
-      torchflower-modifier: 200
-      cactus-modifier: 100
-      cane-modifier: 100
-      melon-modifier: 100
-      mushroom-modifier: 100
-      pumpkin-modifier: 100
-      sapling-modifier: 100
-      beetroot-modifier: 100
-      carrot-modifier: 100
-      potato-modifier: 100
-      wheat-modifier: 100
-      netherwart-modifier: 100
-      vine-modifier: 100
-      cocoa-modifier: 100
-      bamboo-modifier: 100
-      sweetberry-modifier: 100
-      kelp-modifier: 100
-      twistingvines-modifier: 100
-      weepingvines-modifier: 100
-      cavevines-modifier: 100
-      glowberry-modifier: 100
-      pitcherplant-modifier: 100
+      torchflower-modifier: 150
+      cactus-modifier: 75
+      cane-modifier: 75
+      melon-modifier: 75
+      mushroom-modifier: 75
+      pumpkin-modifier: 75
+      sapling-modifier: 75
+      beetroot-modifier: 75
+      carrot-modifier: 75
+      potato-modifier: 75
+      wheat-modifier: 75
+      netherwart-modifier: 75
+      vine-modifier: 75
+      cocoa-modifier: 75
+      bamboo-modifier: 75
+      sweetberry-modifier: 75
+      kelp-modifier: 75
+      twistingvines-modifier: 75
+      weepingvines-modifier: 75
+      cavevines-modifier: 75
+      glowberry-modifier: 75
+      pitcherplant-modifier: 75
     
     entity-activation-range:
       wake-up-inactive:
-        animals-max-per-tick: 2
-        animals-every: 800
-        animals-for: 60
-        monsters-max-per-tick: 4
-        monsters-every: 200
-        monsters-for: 60
-        villagers-max-per-tick: 2
-        villagers-every: 400
-        villagers-for: 60
-        flying-monsters-max-per-tick: 4
-        flying-monsters-every: 100
-        flying-monsters-for: 60
-      villagers-work-immunity-after: 200
-      villagers-work-immunity-for: 10
+        animals-max-per-tick: 4
+        animals-every: 600
+        animals-for: 80
+        monsters-max-per-tick: 8
+        monsters-every: 100
+        monsters-for: 80
+        villagers-max-per-tick: 4
+        villagers-every: 300
+        villagers-for: 80
+        flying-monsters-max-per-tick: 8
+        flying-monsters-every: 50
+        flying-monsters-for: 80
+      villagers-work-immunity-after: 100
+      villagers-work-immunity-for: 20
       villagers-active-for-panic: true
-      tick-inactive-villagers: false
+      tick-inactive-villagers: true
       ignore-spectators: true
-      animals: 16
-      monsters: 20
-      raiders: 32
-      misc: 12
-      water: 6
-      villagers: 24
-      flying-monsters: 24
+      animals: 24
+      monsters: 32
+      raiders: 48
+      misc: 16
+      water: 8
+      villagers: 32
+      flying-monsters: 32
     
     entity-tracking-range:
-      players: 48
-      animals: 24
-      monsters: 24
-      misc: 12
+      players: 64
+      animals: 32
+      monsters: 32
+      misc: 16
       display: 64
-      other: 24
+      other: 32
     
     ticks-per:
-      hopper-transfer: 8
-      hopper-check: 4
+      hopper-transfer: 4
+      hopper-check: 2
     
     hopper-amount: 1
-    hopper-can-load-chunks: false
+    hopper-can-load-chunks: true
     
-    max-tnt-per-tick: 40
+    max-tnt-per-tick: 80
     max-tick-time:
-      tile: 20
-      entity: 20
+      tile: 50
+      entity: 50
     
     enable-zombie-pigmen-portal-spawns: false
-    tick-inactive-villagers: false
+    tick-inactive-villagers: true
     verbose: false
 
 commands:
