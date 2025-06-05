@@ -1,7 +1,10 @@
 #!/bin/bash
-echo "Starting PaperMC Server..."
+echo "Starting PaperMC Server with Optimized Flags..."
 
-# FIFO'yu silme! Sadece kullan!
+# RAM miktarını kontrol et
+TOTAL_RAM=$(free -g | awk '/^Mem:/{print $2}')
+echo "Total System RAM: ${TOTAL_RAM}GB"
+
 java \
   -server \
   -Xms4G -Xmx12G \
@@ -23,6 +26,23 @@ java \
   -XX:SurvivorRatio=32 \
   -XX:+PerfDisableSharedMem \
   -XX:MaxTenuringThreshold=1 \
+  -XX:+UseStringDeduplication \
+  -XX:+UseFastUnorderedTimeStamps \
+  -XX:+OptimizeStringConcat \
+  -XX:+UseCompressedOops \
+  -XX:+UseCompressedClassPointers \
+  -XX:+UseLargePages \
+  -XX:LargePageSizeInBytes=2M \
+  -XX:+UnlockDiagnosticVMOptions \
+  -XX:+LogVMOutput \
+  -XX:+UseTransparentHugePages \
+  -Dfile.encoding=UTF-8 \
+  -Duser.timezone=Europe/Istanbul \
+  -Djava.security.egd=file:/dev/urandom \
   -Dusing.aikars.flags=true \
   -Dcom.mojang.eula.agree=true \
-  -jar 31311.jar nogui 
+  -Dpaper.playerconnection.keepalive=30 \
+  -Dpaper.use-display-name-in-quit-message=true \
+  -jar 31311.jar nogui
+
+echo "Server stopped. Exit code: $?"
