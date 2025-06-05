@@ -50,6 +50,6 @@ java \
     -Dpaper.watchdog-timeout=120 \
     -Dpaper.async-chunks.enable=true \
     -Dpaper.use-optimized-ticklist=true \
-    -jar 31311.jar nogui
+    -jar 31312.jar nogui
 
 echo "Server stopped. Exit code: $?"
