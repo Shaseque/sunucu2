@@ -11,20 +11,20 @@
 verbose: false
 settings:
   logger:
-    suppress-init-legacy-material-errors: false
-    suppress-ignored-advancement-warnings: false
-    suppress-unrecognized-recipe-errors: false
-    suppress-setblock-in-far-chunk-errors: false
-    suppress-library-loader: false
+    suppress-init-legacy-material-errors: true
+    suppress-ignored-advancement-warnings: true
+    suppress-unrecognized-recipe-errors: true
+    suppress-setblock-in-far-chunk-errors: true
+    suppress-library-loader: true
   entity:
     enderman:
       short-height: false
-  disable-give-dropping: false
-  fix-projectile-looting-transfer: false
+  disable-give-dropping: true
+  fix-projectile-looting-transfer: true
   player-deaths-always-show-item: false
   broadcasts:
     advancement:
-      only-broadcast-to-affected-player: false
+      only-broadcast-to-affected-player: true
     death:
       only-broadcast-to-affected-player: false
   messages:
@@ -49,7 +49,7 @@ settings:
     death-message:
       run-with-scissors: <player> slipped and fell on their shears
       stonecutter: <player> has sawed themself in half
-  lagging-threshold: 19.0
+  lagging-threshold: 16.5 # Reduced for better TPS monitoring
   command:
     rambar:
       title: <gray>Ram<yellow>:</yellow> <used>/<xmx> (<percent>)
@@ -62,7 +62,7 @@ settings:
         good: <gradient:#55ff55:#00aa00><text></gradient>
         medium: <gradient:#ffff55:#ffaa00><text></gradient>
         low: <gradient:#ff5555:#aa0000><text></gradient>
-      tick-interval: 20
+      tick-interval: 40 # Reduced frequency for performance
     tpsbar:
       title: <gray>TPS<yellow>:</yellow> <tps> MSPT<yellow>:</yellow> <mspt> Ping<yellow>:</yellow>
         <ping>ms
@@ -76,16 +76,16 @@ settings:
         good: <gradient:#55ff55:#00aa00><text></gradient>
         medium: <gradient:#ffff55:#ffaa00><text></gradient>
         low: <gradient:#ff5555:#aa0000><text></gradient>
-      tick-interval: 20
+      tick-interval: 40 # Reduced frequency for performance
     compass:
       title: 'S  ·  ◈  ·  ◈  ·  ◈  ·  SW  ·  ◈  ·  ◈  ·  ◈  ·  W  ·  ◈  ·  ◈  ·  ◈  ·  NW  ·  ◈  ·  ◈  ·  ◈  ·  N  ·  ◈  ·  ◈  ·  ◈  ·  NE  ·  ◈  ·  ◈  ·  ◈  ·  E  ·  ◈  ·  ◈  ·  ◈  ·  SE  ·  ◈  ·  ◈  ·  ◈  ·  S  ·  ◈  ·  ◈  ·  ◈  ·  SW  ·  ◈  ·  ◈  ·  ◈  ·  W  ·  ◈  ·  ◈  ·  ◈  ·  NW  ·  ◈  ·  ◈  ·  ◈  ·  N  ·  ◈  ·  ◈  ·  ◈  ·  NE  ·  ◈  ·  ◈  ·  ◈  ·  E  ·  ◈  ·  ◈  ·  ◈  ·  SE  ·  ◈  ·  ◈  ·  ◈  ·  '
       overlay: PROGRESS
       progress-color: BLUE
       percent: 1.0
-      tick-interval: 5
+      tick-interval: 10 # Increased frequency for compass
     gamemode:
       requires-specific-permission: false
-    hide-hidden-players-from-entity-selector: false
+    hide-hidden-players-from-entity-selector: true
     uptime:
       format: <days><hours><minutes><seconds>
       day: '%02d day, '
@@ -107,9 +107,9 @@ settings:
     beehive:
       max-bees-inside: 3
     anvil:
-      cumulative-cost: true
+      cumulative-cost: false # Reduced for performance
     lightning_rod:
-      range: 128
+      range: 64 # Reduced range for performance
     grindstone:
       ignored-enchants:
       - minecraft:binding_curse
@@ -117,21 +117,21 @@ settings:
       remove-attributes: false
       remove-name-and-lore: false
     cave_vines:
-      max-growth-age: 25
+      max-growth-age: 20 # Reduced for performance
     kelp:
-      max-growth-age: 25
+      max-growth-age: 20 # Reduced for performance
     twisting_vines:
-      max-growth-age: 25
+      max-growth-age: 20 # Reduced for performance
     weeping_vines:
-      max-growth-age: 25
+      max-growth-age: 20 # Reduced for performance
   limit-armor: true
   network:
     upnp-port-forwarding: false
-    max-joins-per-second: false
+    max-joins-per-second: 5 # Limit for DDoS protection
     kick-for-out-of-order-chat: true
   username-valid-characters: ^[a-zA-Z0-9_.]*$
   food-properties: {}
-  fix-network-serialized-items-in-creative: false
+  fix-network-serialized-items-in-creative: true
   blast-resistance-overrides: {}
   block-fall-multipliers:
     minecraft:orange_bed:
@@ -177,20 +177,20 @@ settings:
     allow-looting-on-shears: false
     anvil:
       allow-unsafe-enchants: false
-      allow-inapplicable-enchants: true
-      allow-incompatible-enchants: true
-      allow-higher-enchants-levels: true
+      allow-inapplicable-enchants: false # Disabled for performance
+      allow-incompatible-enchants: false # Disabled for performance
+      allow-higher-enchants-levels: false # Disabled for performance
       replace-incompatible-enchants: false
     allow-unsafe-enchant-command: false
     clamp-levels: true
-  allow-water-placement-in-the-end: true
-  use-alternate-keepalive: false
+  allow-water-placement-in-the-end: false # Disabled for performance
+  use-alternate-keepalive: true # Enabled for better connection handling
 config-version: 33
 world-settings:
   default:
     blocks:
       observer:
-        disable-clock: false
+        disable-clock: true # Disabled for performance
       anvil:
         allow-colors: false
         use-mini-message: false
@@ -200,16 +200,16 @@ world-settings:
         growth-chance: 0.0
       beacon:
         effect-range:
-          level-1: 20
-          level-2: 30
-          level-3: 40
-          level-4: 50
+          level-1: 15 # Reduced range for performance
+          level-2: 25
+          level-3: 35
+          level-4: 45
         allow-effects-with-tinted-glass: false
       bed:
         explode: true
         explode-on-villager-sleep: false
-        explosion-power: 5.0
-        explosion-fire: true
+        explosion-power: 4.0 # Reduced for performance
+        explosion-fire: false # Disabled for performance
         explosion-effect: BLOCK
       big_dripleaf:
         tilt-delay:
@@ -228,25 +228,25 @@ world-settings:
       chest:
         open-with-solid-block-on-top: false
       composter:
-        sneak-to-bulk-process: false
+        sneak-to-bulk-process: true # Enabled for efficiency
       coral:
         die-outside-water: true
       dispenser:
-        apply-cursed-to-armor-slots: true
+        apply-cursed-to-armor-slots: false # Disabled for performance
         place-anvils: false
       door:
         requires-redstone: []
       dragon_egg:
-        teleport: true
+        teleport: false # Disabled for performance
       end-crystal:
         baseless:
           explode: true
-          explosion-power: 6.0
+          explosion-power: 5.0 # Reduced for performance
           explosion-fire: false
           explosion-effect: BLOCK
         base:
           explode: true
-          explosion-power: 6.0
+          explosion-power: 5.0 # Reduced for performance
           explosion-fire: false
           explosion-effect: BLOCK
         cramming-amount: 0
@@ -265,28 +265,28 @@ world-settings:
       end_portal:
         safe-teleporting: true
       packed_ice:
-        allow-mob-spawns: true
+        allow-mob-spawns: false # Disabled for performance
       blue_ice:
-        allow-mob-spawns: true
-        allow-snow-formation: true
+        allow-mob-spawns: false # Disabled for performance
+        allow-snow-formation: false # Disabled for performance
       lava:
         infinite-required-sources: 2
         speed:
-          nether: 10
-          not-nether: 30
+          nether: 15 # Increased for performance
+          not-nether: 40 # Increased for performance
       piston:
-        block-push-limit: 12
+        block-push-limit: 10 # Reduced for performance
       magma-block:
         damage-when-sneaking: false
         damage-with-frost-walker: false
       powder_snow:
         bypass-mob-griefing: false
       powered-rail:
-        activation-range: 8
+        activation-range: 6 # Reduced for performance
       respawn_anchor:
         explode: true
-        explosion-power: 5.0
-        explosion-fire: true
+        explosion-power: 4.0 # Reduced for performance
+        explosion-fire: false # Disabled for performance
         explosion-effect: BLOCK
       sand:
         fix-duping: true
@@ -299,32 +299,32 @@ world-settings:
       slab:
         break-individual-slabs-when-sneaking: false
       spawner:
-        deactivate-by-redstone: false
-        fix-mc-238526: false
+        deactivate-by-redstone: true # Enabled for performance control
+        fix-mc-238526: true
       sponge:
         absorption:
-          area: 65
-          radius: 6
+          area: 49 # Reduced for performance
+          radius: 5 # Reduced for performance
         absorbs-lava: false
         absorbs-water-from-mud: false
       stonecutter:
         damage: 0.0
       turtle_egg:
-        break-from-exp-orbs: true
-        break-from-items: true
-        break-from-minecarts: true
+        break-from-exp-orbs: false # Disabled for performance
+        break-from-items: false # Disabled for performance
+        break-from-minecarts: false # Disabled for performance
         bypass-mob-griefing: false
-        random-tick-crack-chance: 500
+        random-tick-crack-chance: 750 # Increased for less frequent ticking
         feather-fall-distance-affects-trampling: false
       water:
         infinite-required-sources: 2
       enchantment-table:
-        lapis-persists: false
+        lapis-persists: true # Enabled for efficiency
       conduit:
-        effect-distance: 16
+        effect-distance: 12 # Reduced for performance
         mob-damage:
-          distance: 8.0
-          damage-amount: 4.0
+          distance: 6.0 # Reduced for performance 
+          damage-amount: 3.0 # Reduced for performance
         valid-ring-blocks:
         - minecraft:prismarine
         - minecraft:prismarine_bricks
@@ -332,10 +332,10 @@ world-settings:
         - minecraft:dark_prismarine
       cauldron:
         fill-chances:
-          rain: 0.05000000074505806
-          powder-snow: 0.10000000149011612
-          dripstone-water: 0.17578125
-          dripstone-lava: 0.05859375
+          rain: 0.03 # Reduced for performance
+          powder-snow: 0.07 # Reduced for performance
+          dripstone-water: 0.12 # Reduced for performance
+          dripstone-lava: 0.04 # Reduced for performance
     tools:
       axe:
         strippables:
@@ -534,35 +534,35 @@ world-settings:
             into: minecraft:dirt_path
             drops: {}
     ridable-settings:
-      babies-are-ridable: true
-      untamed-tamables-are-ridable: true
+      babies-are-ridable: false # Disabled for performance
+      untamed-tamables-are-ridable: false # Disabled for performance
       use-night-vision: false
       use-dismounts-underwater-tag: true
     mobs:
       allay:
         ridable: false
-        ridable-in-water: true
-        controllable: true
+        ridable-in-water: false
+        controllable: false
         respect-nbt: []
       axolotl:
         ridable: false
-        controllable: true
+        controllable: false
         attributes:
           max_health: 14.0
-        breeding-delay-ticks: 6000
+        breeding-delay-ticks: 9000 # Increased for performance
         takes-damage-from-water: false
         always-drop-exp: false
       bat:
         ridable: false
-        ridable-in-water: true
-        controllable: true
-        ridable-max-y: 320.0
+        ridable-in-water: false
+        controllable: false
+        ridable-max-y: 256.0
         attributes:
           max_health: 6.0
-          follow_range: 16.0
+          follow_range: 12.0 # Reduced for performance
           knockback_resistance: 0.0
-          movement_speed: 0.6
-          flying_speed: 0.6
+          movement_speed: 0.5 # Reduced for performance
+          flying_speed: 0.5 # Reduced for performance
           armor: 0.0
           armor_toughness: 0.0
           attack_knockback: 0.0
@@ -570,12 +570,12 @@ world-settings:
         always-drop-exp: false
       bee:
         ridable: false
-        ridable-in-water: true
-        controllable: true
-        ridable-max-y: 320.0
+        ridable-in-water: false
+        controllable: false
+        ridable-max-y: 256.0
         attributes:
           max_health: 10.0
-        breeding-delay-ticks: 6000
+        breeding-delay-ticks: 9000 # Increased for performance
         takes-damage-from-water: false
         can-work-at-night: false
         can-work-in-rain: false
@@ -583,9 +583,9 @@ world-settings:
         dies-after-sting: true
       blaze:
         ridable: false
-        ridable-in-water: true
-        controllable: true
-        ridable-max-y: 320.0
+        ridable-in-water: false
+        controllable: false
+        ridable-max-y: 256.0
         attributes:
           max_health: 20.0
         takes-damage-from-water: true
@@ -602,25 +602,25 @@ world-settings:
           movement_speed:
             min: 0.09
             max: 0.09
-        breeding-delay-ticks: 6000
+        breeding-delay-ticks: 9000 # Increased for performance
       cat:
         ridable: false
-        ridable-in-water: true
-        controllable: true
+        ridable-in-water: false
+        controllable: false
         attributes:
           max_health: 10.0
-        spawn-delay: 1200
+        spawn-delay: 1800 # Increased for performance
         scan-range-for-other-cats:
-          swamp-hut: 16
-          village: 48
-        breeding-delay-ticks: 6000
+          swamp-hut: 12 # Reduced for performance
+          village: 36 # Reduced for performance
+        breeding-delay-ticks: 9000 # Increased for performance
         default-collar-color: RED
         takes-damage-from-water: false
         always-drop-exp: false
       cave_spider:
         ridable: false
-        ridable-in-water: true
-        controllable: true
+        ridable-in-water: false
+        controllable: false
         attributes:
           max_health: 12.0
         takes-damage-from-water: false
@@ -628,28 +628,28 @@ world-settings:
       chicken:
         ridable: false
         ridable-in-water: false
-        controllable: true
+        controllable: false
         attributes:
           max_health: 4.0
         retaliate: false
-        breeding-delay-ticks: 6000
+        breeding-delay-ticks: 9000 # Increased for performance
         takes-damage-from-water: false
         always-drop-exp: false
       cod:
         ridable: false
-        controllable: true
+        controllable: false
         attributes:
           max_health: 3.0
         takes-damage-from-water: false
         always-drop-exp: false
       cow:
         ridable: false
-        ridable-in-water: true
-        controllable: true
+        ridable-in-water: false
+        controllable: false
         attributes:
           max_health: 10.0
         feed-mushrooms-for-mooshroom: 0
-        breeding-delay-ticks: 6000
+        breeding-delay-ticks: 9000 # Increased for performance
         takes-damage-from-water: false
         naturally-aggressive-to-players:
           chance: 0.0
@@ -657,12 +657,12 @@ world-settings:
         always-drop-exp: false
       creeper:
         ridable: false
-        ridable-in-water: true
-        controllable: true
+        ridable-in-water: false
+        controllable: false
         attributes:
           max_health: 20.0
         naturally-charged-chance: 0.0
-        allow-griefing: true
+        allow-griefing: false # Disabled for performance and protection
         bypass-mob-griefing: false
         takes-damage-from-water: false
         explode-when-killed: false
@@ -672,14 +672,14 @@ world-settings:
         encircle-target: false
       dolphin:
         ridable: false
-        controllable: true
+        controllable: false
         spit:
-          cooldown: 20
-          speed: 1.0
+          cooldown: 25 # Increased for performance
+          speed: 0.8 # Reduced for performance
           damage: 2.0
         attributes:
           max_health: 10.0
-        disable-treasure-searching: false
+        disable-treasure-searching: true # Disabled for performance
         takes-damage-from-water: false
         naturally-aggressive-to-players-chance: 0.0
         always-drop-exp: false
@@ -695,35 +695,35 @@ world-settings:
           movement_speed:
             min: 0.175
             max: 0.175
-        breeding-delay-ticks: 6000
+        breeding-delay-ticks: 9000 # Increased for performance
         takes-damage-from-water: false
         always-drop-exp: false
       drowned:
         ridable: false
-        ridable-in-water: true
-        controllable: true
+        ridable-in-water: false
+        controllable: false
         attributes:
           max_health: 20.0
-          spawn_reinforcements: 0.1
+          spawn_reinforcements: 0.05 # Reduced for performance
         jockey:
           only-babies: true
-          chance: 0.05
-          try-existing-chickens: true
+          chance: 0.025 # Reduced for performance
+          try-existing-chickens: false # Disabled for performance
         takes-damage-from-water: false
         can-break-doors: false
         always-drop-exp: false
       elder_guardian:
         ridable: false
-        controllable: true
+        controllable: false
         attributes:
           max_health: 80.0
         takes-damage-from-water: false
         always-drop-exp: false
       ender_dragon:
         ridable: false
-        ridable-in-water: true
-        controllable: true
-        ridable-max-y: 320.0
+        ridable-in-water: false
+        controllable: false
+        ridable-max-y: 256.0
         attributes:
           max_health: 200.0
         always-drop-full-exp: false
@@ -732,32 +732,32 @@ world-settings:
         can-ride-vehicles: false
       enderman:
         ridable: false
-        ridable-in-water: true
-        controllable: true
+        ridable-in-water: false
+        controllable: false
         attributes:
           max_health: 40.0
-        allow-griefing: true
+        allow-griefing: false # Disabled for performance and protection
         can-despawn-with-held-block: false
         bypass-mob-griefing: false
         takes-damage-from-water: true
-        aggressive-towards-endermites: true
+        aggressive-towards-endermites: false # Disabled for performance
         aggressive-towards-endermites-only-spawned-by-player-thrown-ender-pearls: false
-        ignore-players-wearing-dragon-head: false
-        disable-player-stare-aggression: false
+        ignore-players-wearing-dragon-head: true # Enabled for performance
+        disable-player-stare-aggression: true # Disabled for performance
         ignore-projectiles: false
         always-drop-exp: false
       endermite:
         ridable: false
-        ridable-in-water: true
-        controllable: true
+        ridable-in-water: false
+        controllable: false
         attributes:
           max_health: 8.0
         takes-damage-from-water: false
         always-drop-exp: false
       evoker:
         ridable: false
-        ridable-in-water: true
-        controllable: true
+        ridable-in-water: false
+        controllable: false
         attributes:
           max_health: 24.0
         bypass-mob-griefing: false
@@ -765,40 +765,40 @@ world-settings:
         always-drop-exp: false
       fox:
         ridable: false
-        ridable-in-water: true
-        controllable: true
+        ridable-in-water: false
+        controllable: false
         attributes:
           max_health: 10.0
         tulips-change-type: false
-        breeding-delay-ticks: 6000
+        breeding-delay-ticks: 9000 # Increased for performance
         bypass-mob-griefing: false
         takes-damage-from-water: false
         always-drop-exp: false
       frog:
         ridable: false
-        ridable-in-water: true
-        controllable: true
+        ridable-in-water: false
+        controllable: false
         ridable-jump-height: 0.6499999761581421
-        breeding-delay-ticks: 6000
+        breeding-delay-ticks: 9000 # Increased for performance
       ghast:
         ridable: false
-        ridable-in-water: true
-        controllable: true
-        ridable-max-y: 320.0
+        ridable-in-water: false
+        controllable: false
+        ridable-max-y: 256.0
         attributes:
           max_health: 10.0
         takes-damage-from-water: false
         always-drop-exp: false
       giant:
         ridable: false
-        ridable-in-water: true
-        controllable: true
-        movement-speed: 0.5
-        attack-damage: 50.0
+        ridable-in-water: false
+        controllable: false
+        movement-speed: 0.4 # Reduced for performance
+        attack-damage: 45.0 # Reduced for performance
         attributes:
-          max_health: 100.0
-        step-height: 2.0
-        jump-height: 1.0
+          max_health: 90.0 # Reduced for performance
+        step-height: 1.5 # Reduced for performance
+        jump-height: 0.8 # Reduced for performance
         have-ai: false
         have-hostile-ai: false
         takes-damage-from-water: false
