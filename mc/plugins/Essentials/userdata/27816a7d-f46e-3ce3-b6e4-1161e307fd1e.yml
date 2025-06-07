@@ -31,8 +31,8 @@ logoutlocation:
 lastlocation:
   world: c361fd2a-8cfa-45db-abeb-b9b0b4e407e3
   world-name: world
-  x: 207.5
+  x: 300.5
   y: 69.0
-  z: -127.5
-  yaw: 0.0
-  pitch: 0.0
+  z: -243.57411483939012
+  yaw: 99.13134765625
+  pitch: -12.01121711730957
