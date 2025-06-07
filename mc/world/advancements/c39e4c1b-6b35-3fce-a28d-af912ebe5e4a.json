@@ -7,7 +7,8 @@
   },
   "minecraft:adventure/adventuring_time": {
     "criteria": {
-      "minecraft:forest": "2025-06-07 22:14:33 +0300"
+      "minecraft:forest": "2025-06-07 22:14:33 +0300",
+      "minecraft:plains": "2025-06-07 22:41:06 +0300"
     },
     "done": false
   },
@@ -32,6 +33,18 @@
   "minecraft:recipes/building_blocks/oak_wood": {
     "criteria": {
       "has_log": "2025-06-07 22:24:27 +0300"
+    },
+    "done": true
+  },
+  "minecraft:recipes/building_blocks/birch_planks": {
+    "criteria": {
+      "has_logs": "2025-06-07 22:39:22 +0300"
+    },
+    "done": true
+  },
+  "minecraft:recipes/building_blocks/birch_wood": {
+    "criteria": {
+      "has_log": "2025-06-07 22:39:22 +0300"
     },
     "done": true
   },

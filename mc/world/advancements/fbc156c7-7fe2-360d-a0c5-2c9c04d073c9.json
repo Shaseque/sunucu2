@@ -7,9 +7,16 @@
   },
   "minecraft:adventure/adventuring_time": {
     "criteria": {
-      "minecraft:forest": "2025-06-07 22:31:11 +0300"
+      "minecraft:forest": "2025-06-07 22:31:11 +0300",
+      "minecraft:plains": "2025-06-07 22:41:06 +0300"
     },
     "done": false
+  },
+  "minecraft:adventure/root": {
+    "criteria": {
+      "killed_by_something": "2025-06-07 22:39:45 +0300"
+    },
+    "done": true
   },
   "DataVersion": 3465
 }

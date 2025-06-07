@@ -8,9 +8,22 @@
   "minecraft:adventure/adventuring_time": {
     "criteria": {
       "minecraft:beach": "2025-06-07 22:31:46 +0300",
-      "minecraft:forest": "2025-06-07 22:31:03 +0300"
+      "minecraft:forest": "2025-06-07 22:31:03 +0300",
+      "minecraft:plains": "2025-06-07 22:41:05 +0300"
     },
     "done": false
+  },
+  "minecraft:adventure/root": {
+    "criteria": {
+      "killed_by_something": "2025-06-07 22:39:03 +0300"
+    },
+    "done": true
+  },
+  "minecraft:recipes/misc/bone_meal": {
+    "criteria": {
+      "has_bone": "2025-06-07 22:40:51 +0300"
+    },
+    "done": true
   },
   "DataVersion": 3465
 }
