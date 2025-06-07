@@ -821,7 +821,31 @@
     },
     "done": true
   },
+  "minecraft:recipes/misc/sugar_from_sugar_cane": {
+    "criteria": {
+      "has_sugar_cane": "2025-06-06 00:18:41 +0300"
+    },
+    "done": true
+  },
+  "minecraft:recipes/misc/paper": {
+    "criteria": {
+      "has_reeds": "2025-06-06 00:18:41 +0300"
+    },
+    "done": true
+  },
   "minecraft:recipes/decorations/black_bed": {
+    "criteria": {
+      "has_black_wool": "2025-06-06 00:18:57 +0300"
+    },
+    "done": true
+  },
+  "minecraft:recipes/decorations/black_carpet": {
+    "criteria": {
+      "has_black_wool": "2025-06-06 00:18:57 +0300"
+    },
+    "done": true
+  },
+  "minecraft:recipes/decorations/black_banner": {
     "criteria": {
       "has_black_wool": "2025-06-06 00:18:57 +0300"
     },
@@ -833,15 +857,15 @@
     },
     "done": true
   },
-  "minecraft:recipes/misc/sugar_from_sugar_cane": {
+  "minecraft:recipes/decorations/light_gray_banner": {
     "criteria": {
-      "has_sugar_cane": "2025-06-06 00:18:41 +0300"
+      "has_light_gray_wool": "2025-06-06 00:19:06 +0300"
     },
     "done": true
   },
-  "minecraft:recipes/decorations/black_carpet": {
+  "minecraft:recipes/decorations/light_gray_carpet": {
     "criteria": {
-      "has_black_wool": "2025-06-06 00:18:57 +0300"
+      "has_light_gray_wool": "2025-06-06 00:19:06 +0300"
     },
     "done": true
   },
@@ -854,30 +878,6 @@
   "minecraft:recipes/misc/yellow_dye_from_dandelion": {
     "criteria": {
       "has_dandelion": "2025-06-06 00:20:47 +0300"
-    },
-    "done": true
-  },
-  "minecraft:recipes/decorations/light_gray_banner": {
-    "criteria": {
-      "has_light_gray_wool": "2025-06-06 00:19:06 +0300"
-    },
-    "done": true
-  },
-  "minecraft:recipes/decorations/black_banner": {
-    "criteria": {
-      "has_black_wool": "2025-06-06 00:18:57 +0300"
-    },
-    "done": true
-  },
-  "minecraft:recipes/decorations/light_gray_carpet": {
-    "criteria": {
-      "has_light_gray_wool": "2025-06-06 00:19:06 +0300"
-    },
-    "done": true
-  },
-  "minecraft:recipes/misc/paper": {
-    "criteria": {
-      "has_reeds": "2025-06-06 00:18:41 +0300"
     },
     "done": true
   },
