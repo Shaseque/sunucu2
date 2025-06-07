@@ -4,7 +4,7 @@ godmode: false
 muted: false
 jailed: false
 ip-address: 127.250.0.155
-afk: false
+afk: true
 socialspy: false
 npc: false
 powertoolsenabled: true
@@ -16,18 +16,18 @@ timestamps:
   mute: 0
   jail: 0
   onlinejail: 0
-  logout: 1749324439431
-  login: 1749324443681
+  logout: 1749327039725
+  login: 1749327085801
 money: '0'
 last-account-name: shaseq1
 logoutlocation:
   world: c361fd2a-8cfa-45db-abeb-b9b0b4e407e3
   world-name: world
-  x: 202.0209468414725
-  y: 62.0
-  z: -133.99104989329132
-  yaw: 6.80010986328125
-  pitch: 25.908525466918945
+  x: 178.73842712905633
+  y: 80.11248903152978
+  z: -92.73223282531252
+  yaw: 18.66668701171875
+  pitch: 52.639251708984375
 lastlocation:
   world: c361fd2a-8cfa-45db-abeb-b9b0b4e407e3
   world-name: world

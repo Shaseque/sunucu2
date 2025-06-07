@@ -202,7 +202,7 @@ world-settings:
 
 commands:
   log: false
-  tab-complete: -1
+  tab-complete: 1
   send-namespaced: true
   spam-exclusions:
   - /skill
