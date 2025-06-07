@@ -16,23 +16,23 @@ timestamps:
   mute: 0
   jail: 0
   onlinejail: 0
-  logout: 1749325357469
-  login: 1749325379631
+  logout: 1749325845781
+  login: 1749325853431
 money: '0'
 last-account-name: Bot_6
 logoutlocation:
   world: c361fd2a-8cfa-45db-abeb-b9b0b4e407e3
   world-name: world
-  x: 253.49592819946363
-  y: 72.0
-  z: -249.5
-  yaw: 179.9304962158203
-  pitch: -0.03174476698040962
+  x: 257.543540100863
+  y: 73.0
+  z: -260.506645028742
+  yaw: -179.99307250976562
+  pitch: 0.015567016787827015
 lastlocation:
   world: c361fd2a-8cfa-45db-abeb-b9b0b4e407e3
   world-name: world
-  x: 194.7758499612842
-  y: 66.0
-  z: -130.3049951778677
-  yaw: 89.10001373291016
-  pitch: 64.79999542236328
+  x: 255.41952657730002
+  y: 72.0
+  z: -257.5
+  yaw: -175.26950073242188
+  pitch: -0.03174476698040962
