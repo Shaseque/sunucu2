@@ -65,6 +65,8 @@ settings:
   moved-too-quickly-multiplier: 10.0
   netty-threads: 8 # 4 çekirdek varsa 8 thread iyidir (2x çekirdek sayısı)
   attribute:
+    maxAbsorption:
+      max: 2048.0
     maxHealth:
       max: 2048.0
     movementSpeed:
@@ -76,6 +78,8 @@ settings:
   debug: false
 world-settings:
   default:
+    unload-frozen-chunks: false
+    seed-trialchambers: 94251327
     zombie-aggressive-towards-villager: true
     dragon-death-sound-radius: 0
     seed-village: 10387312
@@ -212,6 +216,7 @@ commands:
   - summon
   - testforblock
   - tellraw
+  enable-spam-exclusions: false
 players:
   disable-saving: false
 config-version: 12
