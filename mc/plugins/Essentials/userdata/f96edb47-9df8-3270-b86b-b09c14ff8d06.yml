@@ -1,0 +1,30 @@
+teleportenabled: true
+teleportauto: false
+godmode: false
+muted: false
+jailed: false
+ip-address: 127.172.138.29
+afk: false
+socialspy: false
+npc: false
+powertoolsenabled: true
+accepting-pay: true
+baltop-exempt: false
+timestamps:
+  lastteleport: 0
+  lastheal: 0
+  mute: 0
+  jail: 0
+  onlinejail: 0
+  logout: 1749640304126
+  login: 1749640285256
+money: '0'
+last-account-name: freyaya
+logoutlocation:
+  world: 7d00ebc2-dcf8-4808-82fa-c7101e0e2574
+  world-name: world
+  x: -9.5
+  y: 71.0
+  z: 10.5
+  yaw: 22.800003051757812
+  pitch: 32.55000305175781
