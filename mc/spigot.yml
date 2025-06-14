@@ -155,38 +155,38 @@ world-settings:
     
     entity-activation-range:
       wake-up-inactive:
-        animals-max-per-tick: 4
-        animals-every: 600
-        animals-for: 80
-        monsters-max-per-tick: 8
-        monsters-every: 100
-        monsters-for: 80
-        villagers-max-per-tick: 4
-        villagers-every: 300
-        villagers-for: 80
+        animals-max-per-tick: 8
+        animals-every: 300
+        animals-for: 100
+        monsters-max-per-tick: 12
+        monsters-every: 80
+        monsters-for: 100
+        villagers-max-per-tick: 6
+        villagers-every: 200
+        villagers-for: 100
         flying-monsters-max-per-tick: 8
-        flying-monsters-every: 50
-        flying-monsters-for: 80
+        flying-monsters-every: 40
+        flying-monsters-for: 100
       villagers-work-immunity-after: 100
       villagers-work-immunity-for: 20
       villagers-active-for-panic: true
       tick-inactive-villagers: true
       ignore-spectators: true
-      animals: 24
-      monsters: 32
+      animals: 32
+      monsters: 48
       raiders: 48
-      misc: 16
-      water: 8
+      misc: 24
+      water: 16
       villagers: 32
-      flying-monsters: 32
+      flying-monsters: 48
     
     entity-tracking-range:
       players: 64
-      animals: 32
-      monsters: 32
-      misc: 16
+      animals: 64
+      monsters: 64
+      misc: 32
       display: 64
-      other: 32
+      other: 64
     
     ticks-per:
       hopper-transfer: 4
