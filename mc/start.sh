@@ -11,7 +11,7 @@ echo "Available CPU Cores: ${CPU_CORES}"
 # Codespaces için optimize edilmiş ayarlar
 java \
     -server \
-    -Xms2G -Xmx13G \
+    -Xms2G -Xmx6G \
     -XX:+UseG1GC \
     -XX:+ParallelRefProcEnabled \
     -XX:MaxGCPauseMillis=100 \
