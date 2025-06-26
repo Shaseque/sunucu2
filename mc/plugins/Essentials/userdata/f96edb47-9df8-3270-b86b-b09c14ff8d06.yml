@@ -16,15 +16,15 @@ timestamps:
   mute: 0
   jail: 0
   onlinejail: 0
-  logout: 1750963984130
-  login: 1750963999679
+  logout: 1750964289832
+  login: 1750964316178
 money: '0'
 last-account-name: freyaya
 logoutlocation:
   world: 7d00ebc2-dcf8-4808-82fa-c7101e0e2574
   world-name: world
-  x: 19.72715897168324
-  y: 58.68576411604881
-  z: -235.9065926142068
-  yaw: 142.03125
-  pitch: 10.650008201599121
+  x: -114.52807919260418
+  y: 70.0
+  z: -213.2507743951069
+  yaw: 4.049957275390625
+  pitch: 24.450008392333984
