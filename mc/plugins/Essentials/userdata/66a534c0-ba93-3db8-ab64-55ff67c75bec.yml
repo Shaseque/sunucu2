@@ -16,15 +16,15 @@ timestamps:
   mute: 0
   jail: 0
   onlinejail: 0
-  logout: 1751563886374
+  logout: 1751567839722
   login: 1751563921544
 money: '0'
 last-account-name: ythalilpro
 logoutlocation:
   world: 7d00ebc2-dcf8-4808-82fa-c7101e0e2574
   world-name: world
-  x: -41.492862877070856
+  x: -39.6513331380223
   y: 64.0
-  z: -429.2521783371911
-  yaw: 86.32696533203125
-  pitch: 17.86124610900879
+  z: -430.6959765911703
+  yaw: -150.3535614013672
+  pitch: 25.880611419677734
