@@ -16,15 +16,15 @@ timestamps:
   mute: 0
   jail: 0
   onlinejail: 0
-  logout: 1752490915023
+  logout: 1752491502317
   login: 1752490971829
 money: '0'
 last-account-name: snbner
 logoutlocation:
   world: 7d00ebc2-dcf8-4808-82fa-c7101e0e2574
   world-name: world
-  x: -13.645725970445662
-  y: 62.11076431274414
-  z: -505.34092494358026
-  yaw: 145.14743041992188
-  pitch: 9.400003433227539
+  x: -86.69999998807907
+  y: 80.05903169011864
+  z: -386.69999998807907
+  yaw: 61.799957275390625
+  pitch: 59.55000686645508
