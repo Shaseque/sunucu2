@@ -11,8 +11,8 @@ bash com.sh > logs/com.log 2>&1 &
 PID1=$!
 echo "✅ com.sh COMMIT başlatıldı (PID: $PID1)"
 
-playit > logs/playit.log 2>&1 &
-PID2=$!
+#playit > logs/playit.log 2>&1 &
+#PID2=$!
 echo "✅ playit başlatıldı (PID: $PID2)"
 
 cloudflared tunnel run > logs/cloudflared.log 2<&1 &

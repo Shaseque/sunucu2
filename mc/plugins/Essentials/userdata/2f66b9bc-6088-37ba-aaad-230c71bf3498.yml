@@ -16,18 +16,18 @@ timestamps:
   mute: 0
   jail: 0
   onlinejail: 0
-  logout: 1752690195178
+  logout: 1752696467427
   login: 1752691517698
 money: '0'
 last-account-name: shaseq1
 logoutlocation:
   world: 7d00ebc2-dcf8-4808-82fa-c7101e0e2574
   world-name: world
-  x: -4.300000011920929
-  y: -48.0
-  z: -447.468620640015
-  yaw: 96.2884521484375
-  pitch: 20.978160858154297
+  x: -111.7711378873019
+  y: 69.0
+  z: -214.70889504593694
+  yaw: 77.7442626953125
+  pitch: 16.11514663696289
 lastlocation:
   world: 7d00ebc2-dcf8-4808-82fa-c7101e0e2574
   world-name: world
